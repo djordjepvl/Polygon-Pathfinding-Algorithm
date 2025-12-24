@@ -11,3 +11,5 @@
 
 #include <vector>
 #include <random>
+#include <algorithm>
+#include <cmath>
