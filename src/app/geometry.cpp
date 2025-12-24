@@ -3,6 +3,7 @@
 
 std::vector<glm::vec2> polygon;
 std::vector<int> indices;
+BoundingBox bBox;
 glm::vec2 start;
 glm::vec2 end;
 
@@ -27,4 +28,15 @@ void Geometry::printTriangles() {
 void Geometry::printEndPoints() {
     std::cout << "Start Point: " << start.x << ", " << start.y << std::endl;
     std::cout << "End Point: " << end.x << ", " << end.y << std::endl;
+}
+
+
+void Geometry::calculateBoundingBox() {
+    bBox = { 1e9, -1e9, 1e9, -1e9 };
+    for (auto& p : polygon) {
+        if (p.x < bBox.minX) bBox.minX = p.x;
+        if (p.x > bBox.maxX) bBox.maxX = p.x;
+        if (p.y < bBox.minY) bBox.minY = p.y;
+        if (p.y > bBox.maxY) bBox.maxY = p.y;
+    }
 }

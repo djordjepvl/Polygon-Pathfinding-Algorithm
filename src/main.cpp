@@ -5,7 +5,7 @@ int main() {
     if (!glfwInit()) return -1;
 
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    GLFWwindow* window = glfwCreateWindow(1600, 900, "Funnel Pathfinding", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Funnel Pathfinding", NULL, NULL);
     
     if (!window) {
         glfwTerminate();

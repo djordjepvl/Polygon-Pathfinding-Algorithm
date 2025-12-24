@@ -5,4 +5,5 @@ namespace App {
     void input(int key);
     void update();
     void render();
+    void calculateView();
 }

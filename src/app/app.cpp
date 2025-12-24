@@ -4,12 +4,26 @@
 #include <geometry.h>
 #include <generator.h>
 
-void App::init() {
+float camL, camR, camB, camT;
 
+
+void App::init() {
+    Generator::generateProblem();
+        Geometry::printPolygon();
+        Geometry::printTriangles();
+        Geometry::printEndPoints();
+    App::calculateView();
 }
 
 void App::input(int key) {
-    if (key == GLFW_KEY_R) Generator::generateProblem();
+    if (key == GLFW_KEY_R) {
+        Generator::generateProblem();
+        Geometry::printPolygon();
+        Geometry::printTriangles();
+        Geometry::printEndPoints();
+        App::calculateView();
+    }
+    
 }
 
 void App::update() {
@@ -17,6 +31,34 @@ void App::update() {
 }
 
 void App::render() {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(camL, camR, camB, camT, -1, 1);
+
+    glClearColor(0.1f, 0.1f, 0.12f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glEnable(GL_POINT_SMOOTH);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+    glPointSize(20.0f);
+    glBegin(GL_POINTS);
+        glColor3f(1.0f, 1.0f, 0.0f);
+        glVertex2f(bBox.minX, bBox.minY);
+        glVertex2f(bBox.maxX, bBox.minY);
+        glVertex2f(bBox.maxX, bBox.maxY);
+        glVertex2f(bBox.minX, bBox.maxY);
+    glEnd();
+
+    glLineWidth(2.0f);
+    glBegin(GL_LINE_LOOP);
+        glVertex2f(bBox.minX, bBox.minY);
+        glVertex2f(bBox.maxX, bBox.minY);
+        glVertex2f(bBox.maxX, bBox.maxY);
+        glVertex2f(bBox.minX, bBox.maxY);
+    glEnd();
+
     
 }
 
@@ -62,4 +104,22 @@ void deleteThisLaterLol() {
         glColor3f(1.0f, 0.0f, 0.0f); // Red Point
         glVertex2f(1200, 200);
     glEnd();
+}
+
+
+void App::calculateView() {
+    float w = (bBox.maxX - bBox.minX) * 1.2f;
+    float h = (bBox.maxY - bBox.minY) * 1.2f;
+    float cx = (bBox.minX + bBox.maxX) / 2.0f;
+    float cy = (bBox.minY + bBox.maxY) / 2.0f;
+
+    float screenAspect = (float) WINDOW_WIDTH / (float) WINDOW_HEIGHT;
+    
+    if (w / h > screenAspect) h = w / screenAspect;
+    else w = h * screenAspect;
+
+    camL = cx - w / 2.0f;
+    camR = cx + w / 2.0f;
+    camB = cy - h / 2.0f;
+    camT = cy + h / 2.0f;
 }

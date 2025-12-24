@@ -10,9 +10,7 @@ void Generator::generateProblem() {
     Generator::generatePolygon();
     Triangulate::triangulatePolygon();
     Generator::generateEndPoints();
-    Geometry::printPolygon();
-    Geometry::printTriangles();
-    Geometry::printEndPoints();
+    Geometry::calculateBoundingBox();
 }
 
 void Generator::generatePolygon() {
