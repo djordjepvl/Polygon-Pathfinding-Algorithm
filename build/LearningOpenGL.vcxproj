@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -106,10 +106,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -132,7 +132,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -153,10 +153,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -179,7 +179,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -200,10 +200,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -226,7 +226,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -246,10 +246,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLFW\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLAD\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\dependencies\GLM\include;D:\OpenGL Projects\RAF\FunnelAlgorithm\src;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app;D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -328,15 +328,23 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\glad.c" />
     <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\config.h" />
     <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\main.cpp" />
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app.h" />
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\funnel.h" />
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\generator.h" />
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\geometry.h" />
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\pathfind.h" />
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\triangulate.h" />
-    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\glad.c" />
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\app.h" />
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\app.cpp" />
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\geometry.h" />
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\geometry.cpp" />
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\util.h" />
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\util.cpp" />
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\funnel.h" />
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\funnel.cpp" />
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\generator.h" />
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\generator.cpp" />
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\pathfind.h" />
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\pathfind.cpp" />
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\triangulate.h" />
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\triangulate.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,10 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\glad.c">
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\app.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\geometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\funnel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\pathfind.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\triangulate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -12,22 +33,25 @@
     <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app.h">
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\funnel.h">
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\generator.h">
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\geometry.h">
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\funnel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\pathfind.h">
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\generator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\triangulate.h">
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\pathfind.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\app\algorithms\triangulate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

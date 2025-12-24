@@ -1,10 +1,10 @@
-#include "config.h"
-#include "app.h"
+#include <config.h>
+#include <app.h>
 
 int main() {
     if (!glfwInit()) return -1;
 
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // Lock that aspect ratio!
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     GLFWwindow* window = glfwCreateWindow(1600, 900, "Funnel Pathfinding", NULL, NULL);
     
     if (!window) {
@@ -13,27 +13,24 @@ int main() {
     }
 
     glfwMakeContextCurrent(window);
+    glfwSwapInterval(1);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
-    App app;
-    app.init();
+    App::init();
 
-    // Set up input callbacks
-    glfwSetWindowUserPointer(window, &app);
     glfwSetKeyCallback(window, [](GLFWwindow* w, int key, int scancode, int action, int mods) {
-        App* appPtr = (App*)glfwGetWindowUserPointer(w);
-        if (action == GLFW_PRESS) appPtr->onKeyPress(key);
+        if (action == GLFW_PRESS) {
+            App::input(key); 
+        }
     });
 
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
         
-        app.update();
-        app.render();
+        App::update();
+        App::render();
 
         glfwSwapBuffers(window);
-
-        
     }
 
     glfwTerminate();
