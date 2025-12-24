@@ -1,12 +1,15 @@
 #include <config.h>
 #include <app.h>
 
+#include <geometry.h>
+#include <generator.h>
+
 void App::init() {
 
 }
 
 void App::input(int key) {
-    
+    if (key == GLFW_KEY_R) Generator::generateProblem();
 }
 
 void App::update() {
@@ -14,6 +17,10 @@ void App::update() {
 }
 
 void App::render() {
+    
+}
+
+void deleteThisLaterLol() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, 1600, 0, 900, -1, 1);
