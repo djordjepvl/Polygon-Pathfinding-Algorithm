@@ -12,7 +12,6 @@ void Generator::generateProblem() {
     Triangulate::triangulatePolygon();
     Generator::generateEndPoints();
     Geometry::calculateBoundingBox();
-
 }
 
 void Generator::loadPolygon(std::string fileName) {
@@ -58,24 +57,31 @@ void Generator::generatePolygon() {
     std::string randIndex = std::to_string(getRandInt(1, exampleCount));
     std::string fileName = namePrefix + randIndex + nameSuffix;
     loadPolygon(fileName);
-    Triangulate::triangulatePolygon();
-    Generator::generateEndPoints();
 }
 
 void Generator::generateEndPoints() {
     int triCount = indices.size() / 3;
-    if (triCount >= 2) {
-        auto getPt = [](glm::vec2 a, glm::vec2 b, glm::vec2 c) {
-            float u = getRandFloat(0, 1), v = getRandFloat(0, 1);
-            if (u + v > 1) { u = 1 - u; v = 1 - v; }
-            return a + u * (b - a) + v * (c - a);
-        };
+    if (triCount < 1) return;
 
-        // Start point in one of the first few triangles
-        start = getPt(polygon[indices[0]], polygon[indices[1]], polygon[indices[2]]);
-        
-        // End point in one of the last few triangles
-        int lastIdx = (triCount - 1) * 3;
-        end = getPt(polygon[indices[lastIdx]], polygon[indices[lastIdx+1]], polygon[indices[lastIdx+2]]);
-    }
+    auto getPtInTri = [](glm::vec2 a, glm::vec2 b, glm::vec2 c) {
+        float u = getRandFloat(0, 1), v = getRandFloat(0, 1);
+        if (u + v > 1) { u = 1 - u; v = 1 - v; }
+        return a + u * (b - a) + v * (c - a);
+    };
+
+    // pick random triangle for start
+    int startTri = getRandInt(0, triCount - 1);
+    start = getPtInTri(
+        polygon[indices[startTri*3 + 0]],
+        polygon[indices[startTri*3 + 1]],
+        polygon[indices[startTri*3 + 2]]
+    );
+
+    // pick random triangle for end
+    int endTri = getRandInt(0, triCount - 1);
+    end = getPtInTri(
+        polygon[indices[endTri*3 + 0]],
+        polygon[indices[endTri*3 + 1]],
+        polygon[indices[endTri*3 + 2]]
+    );
 }

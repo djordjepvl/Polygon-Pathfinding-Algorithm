@@ -32,77 +32,37 @@ void App::render() {
     glClearColor(0.1f, 0.1f, 0.12f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glEnable(GL_POINT_SMOOTH);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-    glPointSize(20.0f);
-    glBegin(GL_POINTS);
-        glColor3f(1.0f, 1.0f, 0.0f);
-        glVertex2f(bBox.minX, bBox.minY);
-        glVertex2f(bBox.maxX, bBox.minY);
-        glVertex2f(bBox.maxX, bBox.maxY);
-        glVertex2f(bBox.minX, bBox.maxY);
-    glEnd();
+    
 
-    glLineWidth(2.0f);
-    glBegin(GL_LINE_LOOP);
-        glVertex2f(bBox.minX, bBox.minY);
-        glVertex2f(bBox.maxX, bBox.minY);
-        glVertex2f(bBox.maxX, bBox.maxY);
-        glVertex2f(bBox.minX, bBox.maxY);
-    glEnd();
-
+    
+    glColor4f(0.5f, 0.6f, 0.8f, 0.3f); // light blue, semi-transparent
+    
+    for (size_t i = 0; i + 2 < indices.size(); i += 3) {
+        glBegin(GL_LINE_LOOP);
+        glm::vec2 a = polygon[indices[i]];
+        glm::vec2 b = polygon[indices[i+1]];
+        glm::vec2 c = polygon[indices[i+2]];
+        glVertex2f(a.x, a.y);
+        glVertex2f(b.x, b.y);
+        glVertex2f(c.x, c.y);
+        glEnd();
+    }
     glBegin(GL_LINE_LOOP);
     for (auto& p : polygon) glVertex2f(p.x, p.y);
-    
-    glEnd();
-}
-
-void deleteThisLaterLol() {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, 1600, 0, 900, -1, 1);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    // 2. Prepare the Canvas
-    glClearColor(0.1f, 0.1f, 0.12f, 1.0f); // Dark blue-gray
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    // 3. Test: Thick Magenta Line (A "Portal")
-    glLineWidth(5.0f);
-    glColor3f(1.0f, 0.0f, 1.0f); 
-    glBegin(GL_LINES);
-        glVertex2f(100, 100); 
-        glVertex2f(1500, 800);
     glEnd();
 
-    // 4. Test: Thin White Line (A "Triangle Edge")
-    glLineWidth(1.0f);
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glBegin(GL_LINE_LOOP);
-        glVertex2f(400, 200);
-        glVertex2f(1200, 200);
-        glVertex2f(800, 700);
-    glEnd();
 
-    // 5. Test: Rounded Dots (The "Start/End Points")
     glEnable(GL_POINT_SMOOTH);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-
     glPointSize(20.0f);
+
     glBegin(GL_POINTS);
-        glColor3f(0.0f, 1.0f, 0.0f); // Green Point
-        glVertex2f(400, 200);
-        
-        glColor3f(1.0f, 0.0f, 0.0f); // Red Point
-        glVertex2f(1200, 200);
+    glVertex2f(start.x, start.y);
+    glVertex2f(end.x, end.y);
     glEnd();
 }
-
 
 void App::calculateView() {
     float w = (bBox.maxX - bBox.minX) * 1.2f;
