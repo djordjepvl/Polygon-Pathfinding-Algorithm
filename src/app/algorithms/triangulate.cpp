@@ -52,6 +52,7 @@ void Triangulate::triangulatePolygon() {
             float crossZ = edge1.x * edge2.y - edge1.y * edge2.x;
 
             if (crossZ <= 1e-8f) continue; // skip concave or degenerate
+            
 
             bool hasPointInside = false;
             for (int j = 0; j < tmpIdx.size(); j++) {
