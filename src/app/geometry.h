@@ -26,3 +26,4 @@ namespace Geometry {
     void printEndPoints();
     void calculateBoundingBox();
 }
+

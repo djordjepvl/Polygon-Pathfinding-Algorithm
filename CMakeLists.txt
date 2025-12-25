@@ -1,11 +1,16 @@
-cmake_minimum_required(VERSION 3.10.0)
-project(LearningOpenGL VERSION 0.1.0)
+cmake_minimum_required(VERSION 3.16)
+project(LearningOpenGL)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(OpenGL REQUIRED)
 
 add_executable(LearningOpenGL
     src/glad.c
     src/config.h
+    src/config.cpp
     src/main.cpp
 
     src/app/app.h

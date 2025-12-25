@@ -4,6 +4,9 @@
     <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\OpenGL Projects\RAF\FunnelAlgorithm\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

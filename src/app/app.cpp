@@ -9,9 +9,6 @@ float camL, camR, camB, camT;
 
 void App::init() {
     Generator::generateProblem();
-        Geometry::printPolygon();
-        Geometry::printTriangles();
-        Geometry::printEndPoints();
     App::calculateView();
 }
 

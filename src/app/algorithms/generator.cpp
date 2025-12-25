@@ -6,42 +6,64 @@
 #include <triangulate.h>
 
 
+
 void Generator::generateProblem() {
     Generator::generatePolygon();
     Triangulate::triangulatePolygon();
     Generator::generateEndPoints();
     Geometry::calculateBoundingBox();
+
+}
+
+void Generator::loadPolygon(std::string fileName) {
+    polygon.clear();
+
+    std::filesystem::path path = std::filesystem::path(examplesPath) / fileName;
+    
+    std::ifstream file(path);
+    if (!file.is_open()) {
+        throw std::runtime_error("Failed to open polygon file: " + path.string());
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        if (line.empty())
+            continue;
+
+        std::stringstream ss(line);
+        float x, y;
+        if (!(ss >> x >> y)) {
+            throw std::runtime_error(
+                "Invalid vertex format in file: " + path.string()
+            );
+        }
+
+        polygon.emplace_back(x, y);
+    }
+
+    if (polygon.size() < 3) {
+        throw std::runtime_error(
+            "Polygon must have at least 3 vertices: " + path.string()
+        );
+    }
 }
 
 void Generator::generatePolygon() {
-    polygon.clear();
-    std::vector<glm::vec2> leftWall, rightWall;
-
-
-    glm::vec2 pos(0, 0);
-    float angle = 0.0f; 
-    int segments = 15;
-
-    for (int i = 0; i <= segments; ++i) {
-        // Limit turn to +/- 45 degrees to prevent self-intersection
-        angle += getRandFloat(-0.8f, 0.8f); 
-        
-        float length = getRandFloat(150.0f, 300.0f);
-        float halfWidth = getRandFloat(50.0f, 100.0f); 
-
-        pos += glm::vec2(cos(angle), sin(angle)) * length;
-
-        // Normal vector for wall placement
-        glm::vec2 normal(-sin(angle), cos(angle));
-        
-        leftWall.push_back(pos + normal * halfWidth);
-        rightWall.push_back(pos - normal * halfWidth);
+    std::string namePrefix = "polygon";
+    std::string nameSuffix = ".txt";
+    int exampleCount = 0;
+    for (const auto& entry : std::filesystem::directory_iterator(examplesPath)) {
+        if (entry.is_regular_file()) ++exampleCount;
     }
+    std::string randIndex = std::to_string(getRandInt(1, exampleCount));
+    std::string fileName = namePrefix + randIndex + nameSuffix;
+    loadPolygon(fileName);
+    Geometry::printPolygon();
+    Triangulate::triangulatePolygon();
+    Generator::generateEndPoints();
 
-    // CCW Order construction
-    for (const auto& p : rightWall) polygon.push_back(p);
-    std::reverse(leftWall.begin(), leftWall.end());
-    for (const auto& p : leftWall) polygon.push_back(p);
+    Geometry::printTriangles();
+    Geometry::printEndPoints();
 }
 
 void Generator::generateEndPoints() {
