@@ -58,12 +58,8 @@ void Generator::generatePolygon() {
     std::string randIndex = std::to_string(getRandInt(1, exampleCount));
     std::string fileName = namePrefix + randIndex + nameSuffix;
     loadPolygon(fileName);
-    Geometry::printPolygon();
     Triangulate::triangulatePolygon();
     Generator::generateEndPoints();
-
-    Geometry::printTriangles();
-    Geometry::printEndPoints();
 }
 
 void Generator::generateEndPoints() {

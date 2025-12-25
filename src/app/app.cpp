@@ -15,9 +15,6 @@ void App::init() {
 void App::input(int key) {
     if (key == GLFW_KEY_R) {
         Generator::generateProblem();
-        Geometry::printPolygon();
-        Geometry::printTriangles();
-        Geometry::printEndPoints();
         App::calculateView();
     }
     
