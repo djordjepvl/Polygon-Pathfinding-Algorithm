@@ -15,36 +15,49 @@ void Generator::generateProblem() {
 
 void Generator::generatePolygon() {
     polygon.clear();
-    int vertexCnt = getRandInt(MIN_VERTEX_CNT, MAX_VERTEX_CNT);
+    std::vector<glm::vec2> leftWall, rightWall;
 
-    std::vector<float> angles;
-    for (int i = 0; i < vertexCnt; ++i) 
-        angles.push_back(getRandFloat(0.0f, 2.0f * 3.14159f));
-    
-    std::sort(angles.begin(), angles.end());
 
-    for (float a : angles) {
-        float r = getRandFloat(200.0f, MAX_Y); 
-        polygon.push_back({ cosf(a) * r, sinf(a) * r });
+    glm::vec2 pos(0, 0);
+    float angle = 0.0f; 
+    int segments = 15;
+
+    for (int i = 0; i <= segments; ++i) {
+        // Limit turn to +/- 45 degrees to prevent self-intersection
+        angle += getRandFloat(-0.8f, 0.8f); 
+        
+        float length = getRandFloat(150.0f, 300.0f);
+        float halfWidth = getRandFloat(50.0f, 100.0f); 
+
+        pos += glm::vec2(cos(angle), sin(angle)) * length;
+
+        // Normal vector for wall placement
+        glm::vec2 normal(-sin(angle), cos(angle));
+        
+        leftWall.push_back(pos + normal * halfWidth);
+        rightWall.push_back(pos - normal * halfWidth);
     }
+
+    // CCW Order construction
+    for (const auto& p : rightWall) polygon.push_back(p);
+    std::reverse(leftWall.begin(), leftWall.end());
+    for (const auto& p : leftWall) polygon.push_back(p);
 }
 
 void Generator::generateEndPoints() {
     int triCount = indices.size() / 3;
-    if (triCount > 0) {
-        int startTriIdx = getRandInt(0, triCount - 1) * 3;
-        int endTriIdx = getRandInt(0, triCount - 1) * 3;
-        
-        glm::vec2 a1 = polygon[indices[startTriIdx]], b1 = polygon[indices[startTriIdx+1]], c1 = polygon[indices[startTriIdx+2]];
-        glm::vec2 a2 = polygon[indices[endTriIdx]],   b2 = polygon[indices[endTriIdx+1]],   c2 = polygon[indices[endTriIdx+2]];
-        
+    if (triCount >= 2) {
         auto getPt = [](glm::vec2 a, glm::vec2 b, glm::vec2 c) {
             float u = getRandFloat(0, 1), v = getRandFloat(0, 1);
             if (u + v > 1) { u = 1 - u; v = 1 - v; }
             return a + u * (b - a) + v * (c - a);
         };
+
+        // Start point in one of the first few triangles
+        start = getPt(polygon[indices[0]], polygon[indices[1]], polygon[indices[2]]);
         
-        start = getPt(a1, b1, c1);
-        end = getPt(a2, b2, c2);
+        // End point in one of the last few triangles
+        int lastIdx = (triCount - 1) * 3;
+        end = getPt(polygon[indices[lastIdx]], polygon[indices[lastIdx+1]], polygon[indices[lastIdx+2]]);
     }
 }

@@ -59,7 +59,10 @@ void App::render() {
         glVertex2f(bBox.minX, bBox.maxY);
     glEnd();
 
+    glBegin(GL_LINE_LOOP);
+    for (auto& p : polygon) glVertex2f(p.x, p.y);
     
+    glEnd();
 }
 
 void deleteThisLaterLol() {

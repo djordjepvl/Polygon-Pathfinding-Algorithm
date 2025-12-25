@@ -24,7 +24,7 @@ events:
       The output was:
       0
       MSBuild version 17.7.2+d6990bcfa for .NET Framework
-      Build started 12/24/2025 11:52:51 PM.
+      Build started 12/25/2025 12:52:14 AM.
       
       Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\4.0.3\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -78,7 +78,7 @@ events:
       The output was:
       0
       MSBuild version 17.7.2+d6990bcfa for .NET Framework
-      Build started 12/24/2025 11:52:53 PM.
+      Build started 12/25/2025 12:52:15 AM.
       
       Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\4.0.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -125,8 +125,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-se7jr7"
-      binary: "D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-se7jr7"
+      source: "D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-0q6whn"
+      binary: "D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-0q6whn"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
       CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -135,39 +135,39 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-se7jr7'
+        Change Dir: 'D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-0q6whn'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_bd17d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b57b5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.7.2+d6990bcfa for .NET Framework
-        Build started 12/24/2025 11:52:54 PM.
+        Build started 12/25/2025 12:52:17 AM.
         
-        Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-se7jr7\\cmTC_bd17d.vcxproj" on node 1 (default targets).
+        Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0q6whn\\cmTC_b57b5.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_bd17d.dir\\Debug\\".
-          Creating directory "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-se7jr7\\Debug\\".
-          Creating directory "cmTC_bd17d.dir\\Debug\\cmTC_bd17d.tlog\\".
+          Creating directory "cmTC_b57b5.dir\\Debug\\".
+          Creating directory "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0q6whn\\Debug\\".
+          Creating directory "cmTC_b57b5.dir\\Debug\\cmTC_b57b5.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_bd17d.dir\\Debug\\cmTC_bd17d.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_bd17d.dir\\Debug\\cmTC_bd17d.tlog\\unsuccessfulbuild".
+          Creating "cmTC_b57b5.dir\\Debug\\cmTC_b57b5.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_b57b5.dir\\Debug\\cmTC_b57b5.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX86\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_bd17d.dir\\Debug\\\\" /Fd"cmTC_bd17d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\CMake\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX86\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b57b5.dir\\Debug\\\\" /Fd"cmTC_b57b5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\CMake\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.34.31946 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_bd17d.dir\\Debug\\\\" /Fd"cmTC_bd17d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\CMake\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b57b5.dir\\Debug\\\\" /Fd"cmTC_b57b5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\CMake\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX86\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-se7jr7\\Debug\\cmTC_bd17d.exe" /INCREMENTAL /ILK:"cmTC_bd17d.dir\\Debug\\cmTC_bd17d.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-se7jr7/Debug/cmTC_bd17d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-se7jr7/Debug/cmTC_bd17d.lib" /MACHINE:X64  /machine:x64 cmTC_bd17d.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_bd17d.vcxproj -> D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-se7jr7\\Debug\\cmTC_bd17d.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX86\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0q6whn\\Debug\\cmTC_b57b5.exe" /INCREMENTAL /ILK:"cmTC_b57b5.dir\\Debug\\cmTC_b57b5.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-0q6whn/Debug/cmTC_b57b5.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-0q6whn/Debug/cmTC_b57b5.lib" /MACHINE:X64  /machine:x64 cmTC_b57b5.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_b57b5.vcxproj -> D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0q6whn\\Debug\\cmTC_b57b5.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_bd17d.dir\\Debug\\cmTC_bd17d.tlog\\unsuccessfulbuild".
-          Touching "cmTC_bd17d.dir\\Debug\\cmTC_bd17d.tlog\\cmTC_bd17d.lastbuildstate".
-        Done Building Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-se7jr7\\cmTC_bd17d.vcxproj" (default targets).
+          Deleting file "cmTC_b57b5.dir\\Debug\\cmTC_b57b5.tlog\\unsuccessfulbuild".
+          Touching "cmTC_b57b5.dir\\Debug\\cmTC_b57b5.tlog\\cmTC_b57b5.lastbuildstate".
+        Done Building Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0q6whn\\cmTC_b57b5.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:01.40
+        Time Elapsed 00:00:01.16
         
       exitCode: 0
   -
@@ -207,8 +207,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-1d3bzs"
-      binary: "D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-1d3bzs"
+      source: "D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-eif5fu"
+      binary: "D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-eif5fu"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -218,33 +218,33 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-1d3bzs'
+        Change Dir: 'D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-eif5fu'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_1e8d9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2c253.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.7.2+d6990bcfa for .NET Framework
-        Build started 12/24/2025 11:52:56 PM.
+        Build started 12/25/2025 12:52:19 AM.
         
-        Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1d3bzs\\cmTC_1e8d9.vcxproj" on node 1 (default targets).
+        Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-eif5fu\\cmTC_2c253.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_1e8d9.dir\\Debug\\".
-          Creating directory "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1d3bzs\\Debug\\".
-          Creating directory "cmTC_1e8d9.dir\\Debug\\cmTC_1e8d9.tlog\\".
+          Creating directory "cmTC_2c253.dir\\Debug\\".
+          Creating directory "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-eif5fu\\Debug\\".
+          Creating directory "cmTC_2c253.dir\\Debug\\cmTC_2c253.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_1e8d9.dir\\Debug\\cmTC_1e8d9.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_1e8d9.dir\\Debug\\cmTC_1e8d9.tlog\\unsuccessfulbuild".
+          Creating "cmTC_2c253.dir\\Debug\\cmTC_2c253.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_2c253.dir\\Debug\\cmTC_2c253.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX86\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_1e8d9.dir\\Debug\\\\" /Fd"cmTC_1e8d9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\CMake\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX86\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_2c253.dir\\Debug\\\\" /Fd"cmTC_2c253.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\CMake\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.34.31946 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_1e8d9.dir\\Debug\\\\" /Fd"cmTC_1e8d9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\CMake\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_2c253.dir\\Debug\\\\" /Fd"cmTC_2c253.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\CMake\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX86\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1d3bzs\\Debug\\cmTC_1e8d9.exe" /INCREMENTAL /ILK:"cmTC_1e8d9.dir\\Debug\\cmTC_1e8d9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-1d3bzs/Debug/cmTC_1e8d9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-1d3bzs/Debug/cmTC_1e8d9.lib" /MACHINE:X64  /machine:x64 cmTC_1e8d9.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_1e8d9.vcxproj -> D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1d3bzs\\Debug\\cmTC_1e8d9.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX86\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-eif5fu\\Debug\\cmTC_2c253.exe" /INCREMENTAL /ILK:"cmTC_2c253.dir\\Debug\\cmTC_2c253.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-eif5fu/Debug/cmTC_2c253.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/OpenGL Projects/RAF/FunnelAlgorithm/build/CMakeFiles/CMakeScratch/TryCompile-eif5fu/Debug/cmTC_2c253.lib" /MACHINE:X64  /machine:x64 cmTC_2c253.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_2c253.vcxproj -> D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-eif5fu\\Debug\\cmTC_2c253.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_1e8d9.dir\\Debug\\cmTC_1e8d9.tlog\\unsuccessfulbuild".
-          Touching "cmTC_1e8d9.dir\\Debug\\cmTC_1e8d9.tlog\\cmTC_1e8d9.lastbuildstate".
-        Done Building Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1d3bzs\\cmTC_1e8d9.vcxproj" (default targets).
+          Deleting file "cmTC_2c253.dir\\Debug\\cmTC_2c253.tlog\\unsuccessfulbuild".
+          Touching "cmTC_2c253.dir\\Debug\\cmTC_2c253.tlog\\cmTC_2c253.lastbuildstate".
+        Done Building Project "D:\\OpenGL Projects\\RAF\\FunnelAlgorithm\\build\\CMakeFiles\\CMakeScratch\\TryCompile-eif5fu\\cmTC_2c253.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
