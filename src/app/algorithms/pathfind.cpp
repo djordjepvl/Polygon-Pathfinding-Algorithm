@@ -3,40 +3,60 @@
 #include <geometry.h>
 #include <util.h>
 
-void PathFind::bfs() {
-    int n = nodes.size();
-    std::vector<int> parent(n, -1);
-    std::vector<bool> visited(n, 0);
-    
-    std::queue<int> q;
+bool searching = 0;
+
+int n;
+std::vector<int> parent;
+std::vector<bool> visited;
+std::queue<int> q;
+
+void PathFind::bfsStart() {
+    for (auto& node : nodes) node.partOfPath = 0;
+    n = nodes.size();
+    parent.assign(n, -1);
+    visited.assign(n, false);
+    q = std::queue<int>();
 
     visited[startTriangle] = 1;
     q.push(startTriangle);
+    searching = 1;
+}
 
-    while(!q.empty()) {
-        int curr = q.front();
-        q.pop();
-        
-        if (curr == endTriangle) break;
-
-        for (int link : nodes[curr].links) {
-            if (!visited[link]) {
-                visited[link] = 1;
-                q.push(link);
-                parent[link] = curr;
-            }
-        }
+bool PathFind::bfsAdvance() {
+    if (!searching) bfsStart();
+    if (q.empty()) return 0;
+    int curr = q.front();
+    q.pop();
+    
+    if (curr == endTriangle) {
+        bfsFinish();
+        return 0;
     }
 
+    for (int link : nodes[curr].links) {
+        if (!visited[link]) {
+            visited[link] = 1;
+            q.push(link);
+            parent[link] = curr;
+        }
+    }
+    return 1;
+}
+
+void PathFind::bfsFinish() {
+    if (!searching) return;
     int curr = endTriangle;
     while (curr != -1) {
         nodes[curr].partOfPath = 1;
         curr = parent[curr];
     }
+    searching = 0;
 }
+
 
 void PathFind::createGraph() {
     nodes.clear();
+    searching = 0;
     int n = indices.size() / 3;
     
     for (size_t i = 0; i + 2 < indices.size(); i += 3) {

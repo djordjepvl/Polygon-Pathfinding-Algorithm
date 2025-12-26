@@ -14,6 +14,8 @@
 int appState = -1;
 int prevState = -1;
 
+bool doStep = 0;
+
 float camL, camR, camB, camT;
 glm::vec4 bgColor = glm::vec4(0.145f, 0.165f, 0.188f, 1.0f);
 glm::vec4 polyTriangleColor = glm::vec4(0.224f, 0.251f, 0.29f, 1.0f);
@@ -54,12 +56,33 @@ void advanceAppState() {
 }
 
 void App::input(int key) {
-    if (key == GLFW_KEY_R) appState = -1;
+    if (key == GLFW_KEY_R) {
+        advanceAppState();
+        appState = -1;
+    }
     if (key == GLFW_KEY_ENTER) advanceAppState();
-    
+    if (key == GLFW_KEY_F) doStep = 1;
 }
 
 void App::update() {
+
+    if (doStep) {
+        switch (appState) {
+            case 1:
+                if (!PathFind::bfsAdvance()) advanceAppState();
+            break;
+            case 2:
+            break;
+            case 3:
+            
+            break;
+            case 4:
+            
+            break;
+        }
+    }
+    doStep = 0;
+
     if (appState != -1 && appState == prevState) return;
     switch (appState) {
         case -1:
@@ -71,7 +94,7 @@ void App::update() {
             PathFind::createGraph();
         break;
         case 2:
-            PathFind::bfs();
+            while (PathFind::bfsAdvance());
         break;
         case 3:
         
