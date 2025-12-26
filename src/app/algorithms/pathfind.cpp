@@ -14,6 +14,7 @@ void PathFind::bfsStart() {
     q = std::queue<int>();
 
     nodes[startTriangle].visited = 1;
+    nodes[startTriangle].saturation = 0.0f;
     q.push(startTriangle);
     searching = 1;
 }
@@ -27,13 +28,16 @@ bool PathFind::bfsAdvance() {
         return 0;
     }
 
+    
     bool found = 0;
     int curr = q.front();
+    nodes[curr].saturation = 0.35f;
     q.pop();
 
     for (int link : nodes[curr].links) {
         if (!nodes[link].visited) {
             nodes[link].visited = 1;
+            nodes[link].saturation = 0.0f;
             q.push(link);
            nodes[link].parent = curr;
            found = 1;
@@ -51,7 +55,10 @@ void PathFind::bfsFinish() {
         nodes[curr].partOfPath = 1;
         curr = nodes[curr].parent;
     }
-    for (auto& node : nodes) node.visited = 0;
+    for (auto& node : nodes) {
+        node.visited = 0;
+        node.saturation = 1.0f;
+    }
     searching = 0;
     finished = 1;
 }

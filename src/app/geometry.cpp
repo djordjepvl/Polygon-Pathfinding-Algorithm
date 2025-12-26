@@ -54,6 +54,7 @@ triangleNode Geometry::makeTriangleNode() {
     newNode.y = 0;
     newNode.partOfPath = 0;
     newNode.visited = 0;
+    newNode.saturation = 1.0f;
     newNode.parent = -1;
     return newNode;
 }

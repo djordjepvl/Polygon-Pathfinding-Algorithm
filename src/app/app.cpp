@@ -185,7 +185,7 @@ void drawGraphEdges() {
         for (auto& link : node.links) {
             if (link==-1) continue;
             if (node.partOfPath && nodes[link].partOfPath) setColor(pathColor);
-            else if (node.visited && nodes[link].visited) setColor(brightenColor(graphColor, 0.7f));
+            else if (node.visited && nodes[link].visited) setColor(brightenColor(graphColor, std::max(1.0f-node.saturation, 1.0f-nodes[link].saturation)));
             else setColor(graphColor);
             glVertex2f(node.x, node.y);
             glVertex2f(nodes[link].x, nodes[link].y);
@@ -197,7 +197,7 @@ void drawGraphNodes() {
     glBegin(GL_POINTS);
     for (auto& node : nodes) {
         if (node.partOfPath) setColor(pathColor); 
-        else if (node.visited) setColor(brightenColor(graphColor, 0.7f));
+        else if (node.visited) setColor(brightenColor(graphColor, 1.0f-node.saturation));
         else setColor(graphColor);
         glVertex2f(node.x, node.y);
     }

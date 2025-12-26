@@ -15,6 +15,7 @@ struct triangleNode {
     bool partOfPath;
     bool visited;
     int parent;
+    float saturation;
     std::vector<int> links;
 };
 

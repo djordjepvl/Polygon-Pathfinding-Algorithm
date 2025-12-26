@@ -13,3 +13,5 @@ float avgFloat(Args... args) {
     float sum = (args + ...); 
     return sum / sizeof...(args);
 }
+
+float lerpFloat(float a, float b, float amount);

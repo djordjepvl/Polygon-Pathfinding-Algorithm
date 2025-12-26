@@ -13,3 +13,7 @@ float getRandFloat(float min, float max) {
     std::uniform_real_distribution<float> distribution(min, max);
     return distribution(generator);
 }
+
+float lerpFloat(float a, float b, float amount) {
+    return a * (1.0f-amount) + b * amount;
+}
