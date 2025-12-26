@@ -53,6 +53,8 @@ triangleNode Geometry::makeTriangleNode() {
     newNode.x = 0;
     newNode.y = 0;
     newNode.partOfPath = 0;
+    newNode.visited = 0;
+    newNode.parent = -1;
     return newNode;
 }
 

@@ -27,6 +27,18 @@ glm::vec4 graphColor = glm::vec4(0.941f, 0.651f, 0.259f, 1.0f);
 glm::vec4 pathColor = glm::vec4(0.255f, 0.961f, 0.914f, 1.0f);
 
 
+glm::vec4 desaturateColor(glm::vec4 color, float amount) {
+    glm::vec3 luminanceWeights(0.299f, 0.587f, 0.114f);
+    float gray = glm::dot(glm::vec3(color), luminanceWeights);
+    glm::vec3 result = glm::mix(glm::vec3(color), glm::vec3(gray), amount);
+    return glm::vec4(result, color.a);
+}
+glm::vec4 brightenColor(glm::vec4 color, float amount) {
+    glm::vec3 white(1.0f, 1.0f, 1.0f);
+    glm::vec3 brightenedRGB = glm::mix(glm::vec3(color), white, amount);
+    return glm::vec4(brightenedRGB, color.a);
+}
+
 
 void App::calculateView() {
     float w = (bBox.maxX - bBox.minX) * 1.2f;
@@ -69,7 +81,10 @@ void App::update() {
     if (doStep) {
         switch (appState) {
             case 1:
-                if (!PathFind::bfsAdvance()) advanceAppState();
+                if (!PathFind::bfsAdvance()) {
+                    prevState = appState;
+                    advanceAppState();
+                }
             break;
             case 2:
             break;
@@ -170,6 +185,7 @@ void drawGraphEdges() {
         for (auto& link : node.links) {
             if (link==-1) continue;
             if (node.partOfPath && nodes[link].partOfPath) setColor(pathColor);
+            else if (node.visited && nodes[link].visited) setColor(brightenColor(graphColor, 0.7f));
             else setColor(graphColor);
             glVertex2f(node.x, node.y);
             glVertex2f(nodes[link].x, nodes[link].y);
@@ -180,7 +196,8 @@ void drawGraphEdges() {
 void drawGraphNodes() {
     glBegin(GL_POINTS);
     for (auto& node : nodes) {
-        if (node.partOfPath) setColor(pathColor);
+        if (node.partOfPath) setColor(pathColor); 
+        else if (node.visited) setColor(brightenColor(graphColor, 0.7f));
         else setColor(graphColor);
         glVertex2f(node.x, node.y);
     }

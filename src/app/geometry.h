@@ -13,6 +13,8 @@ struct triangleNode {
     int triangleIndex;
     float x, y;
     bool partOfPath;
+    bool visited;
+    int parent;
     std::vector<int> links;
 };
 
