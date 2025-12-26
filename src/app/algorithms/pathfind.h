@@ -2,4 +2,5 @@
 
 namespace PathFind {
     void createGraph();
+    void bfs();
 }

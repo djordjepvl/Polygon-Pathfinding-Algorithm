@@ -12,6 +12,7 @@ struct BoundingBox {
 struct triangleNode {
     int triangleIndex;
     float x, y;
+    bool partOfPath;
     std::vector<int> links;
 };
 
@@ -23,6 +24,7 @@ extern glm::vec2 startPoint;
 extern glm::vec2 endPoint;
 extern int startTriangle;
 extern int endTriangle;
+extern std::vector<int> trianglePath;
 
 
 

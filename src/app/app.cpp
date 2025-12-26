@@ -5,6 +5,15 @@
 #include <generator.h>
 #include <pathfind.h>
 
+//-1 initializing
+//0 - after generating example
+//1 - after creating graph
+//2 - after path in graph has been found
+//3 - now showing triangle path and turned off graph
+//4 - after pathfinding algorithm
+int appState = -1;
+int prevState = -1;
+
 float camL, camR, camB, camT;
 glm::vec4 bgColor = glm::vec4(0.145f, 0.165f, 0.188f, 1.0f);
 glm::vec4 polyTriangleColor = glm::vec4(0.224f, 0.251f, 0.29f, 1.0f);
@@ -12,8 +21,8 @@ glm::vec4 polyEdgeColor = glm::vec4(0.5f, 0.6f, 0.8f, 1.0f);
 glm::vec4 startPointColor = glm::vec4(0.259f, 0.941f, 0.494f, 1.0f);
 glm::vec4 endPointColor = glm::vec4(0.941f, 0.259f, 0.529f, 1.0f);
 
-glm::vec4 graphNodeColor = glm::vec4(0.941f, 0.651f, 0.259f, 1.0f);
-glm::vec4 graphEdgeColor = glm::vec4(0.929f, 0.745f, 0.376f, 1.0f);
+glm::vec4 graphColor = glm::vec4(0.941f, 0.651f, 0.259f, 1.0f);
+glm::vec4 pathColor = glm::vec4(0.255f, 0.961f, 0.914f, 1.0f);
 
 
 
@@ -37,19 +46,41 @@ void App::calculateView() {
 void App::init() {
     Generator::generateProblem();
     App::calculateView();
+    appState = -1;
+}
+
+void advanceAppState() {
+    appState = std::min(appState+1, 4);
 }
 
 void App::input(int key) {
-    if (key == GLFW_KEY_R) {
-        Generator::generateProblem();
-        App::calculateView();
-    }
-    if (key == GLFW_KEY_ENTER) PathFind::createGraph();
+    if (key == GLFW_KEY_R) appState = -1;
+    if (key == GLFW_KEY_ENTER) advanceAppState();
     
 }
 
 void App::update() {
-    
+    if (appState != -1 && appState == prevState) return;
+    switch (appState) {
+        case -1:
+            Generator::generateProblem();
+            App::calculateView();
+            appState = 0;
+        break;
+        case 1:
+            PathFind::createGraph();
+        break;
+        case 2:
+            PathFind::bfs();
+        break;
+        case 3:
+        
+        break;
+        case 4:
+        
+        break;
+    }
+    prevState = appState;
 }
 
 
@@ -111,11 +142,12 @@ void drawEndPoints() {
 }
 
 void drawGraphEdges() {
-    setColor(graphNodeColor);
     glBegin(GL_LINES);
     for (auto& node : nodes) {
         for (auto& link : node.links) {
             if (link==-1) continue;
+            if (node.partOfPath && nodes[link].partOfPath) setColor(pathColor);
+            else setColor(graphColor);
             glVertex2f(node.x, node.y);
             glVertex2f(nodes[link].x, nodes[link].y);
         }
@@ -123,9 +155,12 @@ void drawGraphEdges() {
     glEnd();
 }
 void drawGraphNodes() {
-    setColor(graphNodeColor);
     glBegin(GL_POINTS);
-    for (auto& node : nodes) glVertex2f(node.x, node.y);
+    for (auto& node : nodes) {
+        if (node.partOfPath) setColor(pathColor);
+        else setColor(graphColor);
+        glVertex2f(node.x, node.y);
+    }
     glEnd();
 }
 

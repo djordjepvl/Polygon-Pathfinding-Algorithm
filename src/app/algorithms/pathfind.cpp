@@ -3,6 +3,38 @@
 #include <geometry.h>
 #include <util.h>
 
+void PathFind::bfs() {
+    int n = nodes.size();
+    std::vector<int> parent(n, -1);
+    std::vector<bool> visited(n, 0);
+    
+    std::queue<int> q;
+
+    visited[startTriangle] = 1;
+    q.push(startTriangle);
+
+    while(!q.empty()) {
+        int curr = q.front();
+        q.pop();
+        
+        if (curr == endTriangle) break;
+
+        for (int link : nodes[curr].links) {
+            if (!visited[link]) {
+                visited[link] = 1;
+                q.push(link);
+                parent[link] = curr;
+            }
+        }
+    }
+
+    int curr = endTriangle;
+    while (curr != -1) {
+        nodes[curr].partOfPath = 1;
+        curr = parent[curr];
+    }
+}
+
 void PathFind::createGraph() {
     nodes.clear();
     int n = indices.size() / 3;

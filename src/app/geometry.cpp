@@ -9,6 +9,7 @@ glm::vec2 startPoint;
 glm::vec2 endPoint;
 int startTriangle;
 int endTriangle;
+std::vector<int> trianglePath;
 
 
 
@@ -51,6 +52,7 @@ triangleNode Geometry::makeTriangleNode() {
     newNode.triangleIndex = -1;
     newNode.x = 0;
     newNode.y = 0;
+    newNode.partOfPath = 0;
     return newNode;
 }
 

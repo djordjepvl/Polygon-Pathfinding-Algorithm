@@ -12,10 +12,10 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <queue>
 #include <cmath>
 
 #include <filesystem>
-#include <string>
 
 #define WINDOW_WIDTH 1600
 #define WINDOW_HEIGHT 900
