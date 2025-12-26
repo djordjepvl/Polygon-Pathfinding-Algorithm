@@ -66,7 +66,7 @@ bool advanced = 0;
 void advanceAppState() {
     if (advanced) return;
     prevState = appState;
-    appState = std::min(appState+1, 4);
+    appState = std::min(appState+1, 6);
     advanced = 1;
 }
 
@@ -98,8 +98,8 @@ void App::update() {
             break;
             case 1:
                 if (!PathFind::bfsAdvance()) {
-                    std::cout << "ahahrhar" << std::endl;
                     advanceAppState();
+                    stepHold = 0;
                 }
             break;
             case 2:
@@ -119,7 +119,6 @@ void App::update() {
     doStep = 0;
 
     if (appState != -1 && appState == prevState) return;
-    std::cout << "good" << std::endl;
     switch (appState) {
         case -1:
             trianglePath.clear();
@@ -265,16 +264,21 @@ void App::render() {
     drawPolyTriangles();
     drawPolyEdges();
     
-    if (appState>2) {
+    if (appState>=3) {
         drawFillLayer(0.65f);
         drawTrianglePath();
     }
     
-    if (appState>0 && appState<4) {
+    if (appState>=1 && appState<4) {
         drawGraphEdges();
         drawGraphNodes();
     }
     
     drawEndTriangles();
+
+    if (appState>=5) {
+        drawFillLayer(0.5f);
+    }
+
     drawEndPoints();
 }
