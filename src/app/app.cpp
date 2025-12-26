@@ -5,64 +5,11 @@
 #include <generator.h>
 
 float camL, camR, camB, camT;
-
-
-void App::init() {
-    Generator::generateProblem();
-    App::calculateView();
-}
-
-void App::input(int key) {
-    if (key == GLFW_KEY_R) {
-        Generator::generateProblem();
-        App::calculateView();
-    }
-    
-}
-
-void App::update() {
-
-}
-
-void App::render() {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(camL, camR, camB, camT, -1, 1);
-
-    glClearColor(0.1f, 0.1f, 0.12f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    
-
-    
-    glColor4f(0.5f, 0.6f, 0.8f, 0.3f); // light blue, semi-transparent
-    
-    for (size_t i = 0; i + 2 < indices.size(); i += 3) {
-        glBegin(GL_LINE_LOOP);
-        glm::vec2 a = polygon[indices[i]];
-        glm::vec2 b = polygon[indices[i+1]];
-        glm::vec2 c = polygon[indices[i+2]];
-        glVertex2f(a.x, a.y);
-        glVertex2f(b.x, b.y);
-        glVertex2f(c.x, c.y);
-        glEnd();
-    }
-    glBegin(GL_LINE_LOOP);
-    for (auto& p : polygon) glVertex2f(p.x, p.y);
-    glEnd();
-
-
-    glEnable(GL_POINT_SMOOTH);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-    glPointSize(20.0f);
-
-    glBegin(GL_POINTS);
-    glVertex2f(start.x, start.y);
-    glVertex2f(end.x, end.y);
-    glEnd();
-}
+glm::vec4 bgColor = glm::vec4(0.145f, 0.165f, 0.188f, 1.0f);
+glm::vec4 polyTriangleColor = glm::vec4(0.224f, 0.251f, 0.29f, 1.0f);
+glm::vec4 polyEdgeColor = glm::vec4(0.5f, 0.6f, 0.8f, 1.0f);
+glm::vec4 startPointColor = glm::vec4(0.259f, 0.941f, 0.494f, 1.0f);
+glm::vec4 endPointColor = glm::vec4(0.941f, 0.259f, 0.529f, 1.0f);
 
 void App::calculateView() {
     float w = (bBox.maxX - bBox.minX) * 1.2f;
@@ -79,4 +26,75 @@ void App::calculateView() {
     camR = cx + w / 2.0f;
     camB = cy - h / 2.0f;
     camT = cy + h / 2.0f;
+}
+
+void App::init() {
+    Generator::generateProblem();
+    App::calculateView();
+}
+
+void App::input(int key) {
+    if (key == GLFW_KEY_R) {
+        Generator::generateProblem();
+        App::calculateView();
+    }
+    
+}
+
+void App::update() {
+    
+}
+
+
+void setColor(glm::vec4 color) {
+    glColor4f(color.r, color.g, color.b, color.a);
+}
+
+void drawPolyTriangles() {
+    setColor(polyTriangleColor);
+    for (size_t i = 0; i + 2 < indices.size(); i += 3) {
+        glBegin(GL_LINE_LOOP);
+        glm::vec2 a = polygon[indices[i]];
+        glm::vec2 b = polygon[indices[i+1]];
+        glm::vec2 c = polygon[indices[i+2]];
+        glVertex2f(a.x, a.y);
+        glVertex2f(b.x, b.y);
+        glVertex2f(c.x, c.y);
+        glEnd();
+    }
+}
+
+void drawPolyEdges() {
+    setColor(polyEdgeColor);
+    glBegin(GL_LINE_LOOP);
+    for (auto& p : polygon) glVertex2f(p.x, p.y);
+    glEnd();
+}
+
+void drawEndPoints() {
+    glBegin(GL_POINTS);
+    setColor(startPointColor);
+    glVertex2f(start.x, start.y);
+    setColor(endPointColor);
+    glVertex2f(end.x, end.y);
+    glEnd();
+}
+
+void App::render() {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(camL, camR, camB, camT, -1, 1);
+    glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glEnable(GL_POINT_SMOOTH);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+    glPointSize(10.0f);
+    glLineWidth(2.0f);
+    
+    drawPolyTriangles();
+    drawPolyEdges();
+    drawEndPoints();
 }
