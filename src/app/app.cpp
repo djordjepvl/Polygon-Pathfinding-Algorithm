@@ -237,6 +237,18 @@ void drawGraphNodes() {
 }
 
 void drawTrianglePath() {
+    glm::vec4 fillCol = trianglePathColor;
+    fillCol.a = 0.15f; 
+    setColor(fillCol);
+    
+    glBegin(GL_TRIANGLES);
+    for (auto& i : trianglePath) {
+        glVertex2f(polygon[indices[i*3]].x,   polygon[indices[i*3]].y);
+        glVertex2f(polygon[indices[i*3+1]].x, polygon[indices[i*3+1]].y);
+        glVertex2f(polygon[indices[i*3+2]].x, polygon[indices[i*3+2]].y);
+    }
+    glEnd();
+
     setColor(trianglePathColor);
     for (auto& i : trianglePath) {
         glBegin(GL_LINE_LOOP);
