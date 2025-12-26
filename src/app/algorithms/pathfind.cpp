@@ -53,11 +53,15 @@ void PathFind::bfsFinish() {
     while (curr != -1) {
         
         nodes[curr].partOfPath = 1;
+        trianglePath.push_back(curr);
         curr = nodes[curr].parent;
     }
+    std::reverse(trianglePath.begin(), trianglePath.end());
+    
     for (auto& node : nodes) {
         node.visited = 0;
         node.saturation = 1.0f;
+        
     }
     searching = 0;
     finished = 1;

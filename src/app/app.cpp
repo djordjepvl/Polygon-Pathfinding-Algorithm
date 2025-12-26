@@ -25,6 +25,7 @@ glm::vec4 endPointColor = glm::vec4(0.941f, 0.259f, 0.529f, 1.0f);
 
 glm::vec4 graphColor = glm::vec4(0.941f, 0.651f, 0.259f, 1.0f);
 glm::vec4 pathColor = glm::vec4(0.255f, 0.961f, 0.914f, 1.0f);
+glm::vec4 trianglePathColor = glm::vec4(0.098f, 0.478f, 1.0f, 1.0f);
 
 
 glm::vec4 desaturateColor(glm::vec4 color, float amount) {
@@ -58,13 +59,15 @@ void App::calculateView() {
 }
 
 void App::init() {
-    Generator::generateProblem();
-    App::calculateView();
     appState = -1;
 }
 
+bool advanced = 0;
 void advanceAppState() {
+    if (advanced) return;
+    prevState = appState;
     appState = std::min(appState+1, 4);
+    advanced = 1;
 }
 
 int stepHold = 0;
@@ -89,27 +92,37 @@ void App::update() {
 
     if (doStep) {
         switch (appState) {
+            case 0:
+                advanceAppState();
+                stepHold = 0;
+            break;
             case 1:
                 if (!PathFind::bfsAdvance()) {
-                    prevState = appState;
+                    std::cout << "ahahrhar" << std::endl;
                     advanceAppState();
                 }
             break;
             case 2:
+                advanceAppState();
+                stepHold = 0;
             break;
             case 3:
-            
+                advanceAppState();
+                stepHold = 0;
             break;
             case 4:
-            
+                advanceAppState();
+                stepHold = 0;
             break;
         }
     }
     doStep = 0;
 
     if (appState != -1 && appState == prevState) return;
+    std::cout << "good" << std::endl;
     switch (appState) {
         case -1:
+            trianglePath.clear();
             Generator::generateProblem();
             App::calculateView();
             appState = 0;
@@ -128,11 +141,22 @@ void App::update() {
         break;
     }
     prevState = appState;
+    advanced = 0;
 }
 
 
 void setColor(glm::vec4 color) {
     glColor4f(color.r, color.g, color.b, color.a);
+}
+
+void drawFillLayer(float opacity) {
+    glColor4f(bgColor.r, bgColor.g, bgColor.b, opacity);
+    glBegin(GL_QUADS);
+        glVertex2f(-1.0f, -1.0f);
+        glVertex2f( 1.0f, -1.0f);
+        glVertex2f( 1.0f,  1.0f);
+        glVertex2f(-1.0f,  1.0f);
+    glEnd();
 }
 
 void drawPolyTriangles() {
@@ -213,6 +237,17 @@ void drawGraphNodes() {
     glEnd();
 }
 
+void drawTrianglePath() {
+    setColor(trianglePathColor);
+    for (auto& i : trianglePath) {
+        glBegin(GL_LINE_LOOP);
+        glVertex2f(polygon[indices[i*3]].x , polygon[indices[i*3]].y);
+        glVertex2f(polygon[indices[i*3+1]].x , polygon[indices[i*3+1]].y);
+        glVertex2f(polygon[indices[i*3+2]].x , polygon[indices[i*3+2]].y);
+        glEnd();
+    }
+}
+
 void App::render() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -230,9 +265,16 @@ void App::render() {
     drawPolyTriangles();
     drawPolyEdges();
     
-    drawGraphEdges();
-    drawGraphNodes();
-
+    if (appState>2) {
+        drawFillLayer(0.65f);
+        drawTrianglePath();
+    }
+    
+    if (appState>0 && appState<4) {
+        drawGraphEdges();
+        drawGraphNodes();
+    }
+    
     drawEndTriangles();
     drawEndPoints();
 }
