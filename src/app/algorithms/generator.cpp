@@ -73,18 +73,18 @@ void Generator::generateEndPoints() {
     };
 
     // pick random triangle for start
-    int startTri = getRandInt(0, triCount - 1);
-    start = getPtInTri(
-        polygon[indices[startTri*3 + 0]],
-        polygon[indices[startTri*3 + 1]],
-        polygon[indices[startTri*3 + 2]]
+    startTriangle = getRandInt(0, triCount - 1);
+    startPoint = getPtInTri(
+        polygon[indices[startTriangle*3 + 0]],
+        polygon[indices[startTriangle*3 + 1]],
+        polygon[indices[startTriangle*3 + 2]]
     );
 
     // pick random triangle for end
-    int endTri = getRandInt(0, triCount - 1);
-    end = getPtInTri(
-        polygon[indices[endTri*3 + 0]],
-        polygon[indices[endTri*3 + 1]],
-        polygon[indices[endTri*3 + 2]]
+    endTriangle = getRandInt(0, triCount - 1);
+    endPoint = getPtInTri(
+        polygon[indices[endTriangle*3 + 0]],
+        polygon[indices[endTriangle*3 + 1]],
+        polygon[indices[endTriangle*3 + 2]]
     );
 }

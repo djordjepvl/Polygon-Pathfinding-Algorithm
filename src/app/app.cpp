@@ -15,6 +15,8 @@ glm::vec4 endPointColor = glm::vec4(0.941f, 0.259f, 0.529f, 1.0f);
 glm::vec4 graphNodeColor = glm::vec4(0.941f, 0.651f, 0.259f, 1.0f);
 glm::vec4 graphEdgeColor = glm::vec4(0.929f, 0.745f, 0.376f, 1.0f);
 
+
+
 void App::calculateView() {
     float w = (bBox.maxX - bBox.minX) * 1.2f;
     float h = (bBox.maxY - bBox.minY) * 1.2f;
@@ -76,12 +78,35 @@ void drawPolyEdges() {
     glEnd();
 }
 
+void drawEndTriangles() {
+    if (startTriangle == endTriangle) glLineWidth(5.0f);
+    setColor(endPointColor);
+    glm::vec2 a = polygon[indices[endTriangle*3]];
+    glm::vec2 b = polygon[indices[endTriangle*3+1]];
+    glm::vec2 c = polygon[indices[endTriangle*3+2]];
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(a.x, a.y);
+    glVertex2f(b.x, b.y);
+    glVertex2f(c.x, c.y);
+    glEnd();
+    if (startTriangle == endTriangle) glLineWidth(2.0f);
+    setColor(startPointColor);
+    a = polygon[indices[startTriangle*3]];
+    b = polygon[indices[startTriangle*3+1]];
+    c = polygon[indices[startTriangle*3+2]];
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(a.x, a.y);
+    glVertex2f(b.x, b.y);
+    glVertex2f(c.x, c.y);
+    glEnd();
+}
+
 void drawEndPoints() {
     glBegin(GL_POINTS);
     setColor(startPointColor);
-    glVertex2f(start.x, start.y);
+    glVertex2f(startPoint.x, startPoint.y);
     setColor(endPointColor);
-    glVertex2f(end.x, end.y);
+    glVertex2f(endPoint.x, endPoint.y);
     glEnd();
 }
 
@@ -123,6 +148,7 @@ void App::render() {
     
     drawGraphEdges();
     drawGraphNodes();
-    
+
+    drawEndTriangles();
     drawEndPoints();
 }

@@ -5,8 +5,10 @@ std::vector<glm::vec2> polygon;
 std::vector<int> indices;
 std::vector<triangleNode> nodes;
 BoundingBox bBox;
-glm::vec2 start;
-glm::vec2 end;
+glm::vec2 startPoint;
+glm::vec2 endPoint;
+int startTriangle;
+int endTriangle;
 
 
 
@@ -29,8 +31,8 @@ void Geometry::printTriangles() {
 }
 
 void Geometry::printEndPoints() {
-    std::cout << "Start Point: " << start.x << ", " << start.y << std::endl;
-    std::cout << "End Point: " << end.x << ", " << end.y << std::endl;
+    std::cout << "Start Point: " << startPoint.x << ", " << startPoint.y << std::endl;
+    std::cout << "End Point: " << endPoint.x << ", " << endPoint.y << std::endl;
 }
 
 
