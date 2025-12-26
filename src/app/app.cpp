@@ -67,16 +67,25 @@ void advanceAppState() {
     appState = std::min(appState+1, 4);
 }
 
-void App::input(int key) {
-    if (key == GLFW_KEY_R) {
+int stepHold = 0;
+
+void App::input(int key, int action) {
+    if (key == GLFW_KEY_R && action == GLFW_PRESS) {
         advanceAppState();
         appState = -1;
     }
-    if (key == GLFW_KEY_ENTER) advanceAppState();
-    if (key == GLFW_KEY_F) doStep = 1;
+    if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) advanceAppState();
+    if (key == GLFW_KEY_F) {
+        if (action == GLFW_PRESS) stepHold = 1;
+        else if (action == GLFW_RELEASE) stepHold = 0;
+    }
 }
 
 void App::update() {
+    if (stepHold) {
+        stepHold++;
+        doStep = stepHold%10==0;
+    }
 
     if (doStep) {
         switch (appState) {

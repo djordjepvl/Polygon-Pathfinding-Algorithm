@@ -19,8 +19,8 @@ int main() {
     App::init();
 
     glfwSetKeyCallback(window, [](GLFWwindow* w, int key, int scancode, int action, int mods) {
-        if (action == GLFW_PRESS) {
-            App::input(key); 
+        if (action == GLFW_PRESS || action == GLFW_RELEASE) {
+            App::input(key, action); 
         }
     });
 
