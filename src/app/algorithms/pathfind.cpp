@@ -22,21 +22,24 @@ bool PathFind::bfsAdvance() {
     if (finished) return 0;
     if (!searching) bfsStart();
     if (q.empty()) return 0;
-    int curr = q.front();
-    q.pop();
-    
-    if (curr == endTriangle) {
+    if (nodes[endTriangle].visited) {
         bfsFinish();
         return 0;
     }
+
+    bool found = 0;
+    int curr = q.front();
+    q.pop();
 
     for (int link : nodes[curr].links) {
         if (!nodes[link].visited) {
             nodes[link].visited = 1;
             q.push(link);
            nodes[link].parent = curr;
+           found = 1;
         }
     }
+    if (!found) PathFind::bfsAdvance();
     return 1;
 }
 
