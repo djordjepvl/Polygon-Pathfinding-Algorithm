@@ -9,9 +9,15 @@ struct BoundingBox {
     float minX, maxX, minY, maxY; 
 };
 
+struct triangleNode {
+    int triangleIndex;
+    float x, y;
+    std::vector<int> links;
+};
 
 extern std::vector<glm::vec2> polygon;
 extern std::vector<int> indices;
+extern std::vector<triangleNode> nodes;
 extern BoundingBox bBox;
 extern glm::vec2 start;
 extern glm::vec2 end;
@@ -25,5 +31,6 @@ namespace Geometry {
     void printTriangles();
     void printEndPoints();
     void calculateBoundingBox();
+    triangleNode makeTriangleNode();
 }
 

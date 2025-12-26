@@ -3,6 +3,7 @@
 
 #include <geometry.h>
 #include <generator.h>
+#include <pathfind.h>
 
 float camL, camR, camB, camT;
 glm::vec4 bgColor = glm::vec4(0.145f, 0.165f, 0.188f, 1.0f);
@@ -10,6 +11,9 @@ glm::vec4 polyTriangleColor = glm::vec4(0.224f, 0.251f, 0.29f, 1.0f);
 glm::vec4 polyEdgeColor = glm::vec4(0.5f, 0.6f, 0.8f, 1.0f);
 glm::vec4 startPointColor = glm::vec4(0.259f, 0.941f, 0.494f, 1.0f);
 glm::vec4 endPointColor = glm::vec4(0.941f, 0.259f, 0.529f, 1.0f);
+
+glm::vec4 graphNodeColor = glm::vec4(0.941f, 0.651f, 0.259f, 1.0f);
+glm::vec4 graphEdgeColor = glm::vec4(0.929f, 0.745f, 0.376f, 1.0f);
 
 void App::calculateView() {
     float w = (bBox.maxX - bBox.minX) * 1.2f;
@@ -38,6 +42,7 @@ void App::input(int key) {
         Generator::generateProblem();
         App::calculateView();
     }
+    if (key == GLFW_KEY_ENTER) PathFind::createGraph();
     
 }
 
@@ -80,6 +85,25 @@ void drawEndPoints() {
     glEnd();
 }
 
+void drawGraphEdges() {
+    setColor(graphNodeColor);
+    glBegin(GL_LINES);
+    for (auto& node : nodes) {
+        for (auto& link : node.links) {
+            if (link==-1) continue;
+            glVertex2f(node.x, node.y);
+            glVertex2f(nodes[link].x, nodes[link].y);
+        }
+    }
+    glEnd();
+}
+void drawGraphNodes() {
+    setColor(graphNodeColor);
+    glBegin(GL_POINTS);
+    for (auto& node : nodes) glVertex2f(node.x, node.y);
+    glEnd();
+}
+
 void App::render() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -96,5 +120,9 @@ void App::render() {
     
     drawPolyTriangles();
     drawPolyEdges();
+    
+    drawGraphEdges();
+    drawGraphNodes();
+    
     drawEndPoints();
 }

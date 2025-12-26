@@ -8,6 +8,9 @@
 
 
 void Generator::generateProblem() {
+    polygon.clear();
+    indices.clear();
+    nodes.clear();
     Generator::generatePolygon();
     Triangulate::triangulatePolygon();
     Generator::generateEndPoints();

@@ -3,9 +3,12 @@
 
 std::vector<glm::vec2> polygon;
 std::vector<int> indices;
+std::vector<triangleNode> nodes;
 BoundingBox bBox;
 glm::vec2 start;
 glm::vec2 end;
+
+
 
 void Geometry::printPolygon() {
     for (int i = 0; i < polygon.size(); i++) {
@@ -40,3 +43,12 @@ void Geometry::calculateBoundingBox() {
         if (p.y > bBox.maxY) bBox.maxY = p.y;
     }
 }
+
+triangleNode Geometry::makeTriangleNode() {
+    triangleNode newNode;
+    newNode.triangleIndex = -1;
+    newNode.x = 0;
+    newNode.y = 0;
+    return newNode;
+}
+
