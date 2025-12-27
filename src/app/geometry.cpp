@@ -10,7 +10,7 @@ glm::vec2 endPoint;
 int startTriangle;
 int endTriangle;
 std::vector<int> trianglePath;
-
+std::vector<Portal> portals;
 
 
 void Geometry::printPolygon() {

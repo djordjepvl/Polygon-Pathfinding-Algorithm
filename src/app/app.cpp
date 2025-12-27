@@ -4,13 +4,8 @@
 #include <geometry.h>
 #include <generator.h>
 #include <pathfind.h>
+#include <funnel.h>
 
-//-1 initializing
-//0 - after generating example
-//1 - after creating graph
-//2 - after path in graph has been found
-//3 - now showing triangle path and turned off graph
-//4 - after pathfinding algorithm
 int appState = -1;
 int prevState = -1;
 
@@ -121,7 +116,9 @@ void App::update() {
     if (appState != -1 && appState == prevState) return;
     switch (appState) {
         case -1:
+            nodes.clear();
             trianglePath.clear();
+            portals.clear();
             Generator::generateProblem();
             App::calculateView();
             appState = 0;
@@ -132,11 +129,11 @@ void App::update() {
         case 2:
             while (PathFind::bfsAdvance());
         break;
-        case 3:
-        
+        case 5:
+            Funnel::findPortals();
         break;
-        case 4:
-        
+        case 6:
+            
         break;
     }
     prevState = appState;
@@ -259,6 +256,27 @@ void drawTrianglePath() {
     }
 }
 
+void drawPortals() {
+    setColor(trianglePathColor);
+    for (auto& portal : portals) {
+        setColor(trianglePathColor);
+        glBegin(GL_LINES);
+        glVertex2f(portal.l.x, portal.l.y);
+        glVertex2f(portal.r.x, portal.r.y);
+        glEnd();
+        glPointSize(10.0f);
+        glBegin(GL_POINTS);
+        setColor(endPointColor);
+        glVertex2f(portal.r.x, portal.r.y);
+        glEnd();
+        glPointSize(5.0f);
+        glBegin(GL_POINTS);
+        setColor(startPointColor);
+        glVertex2f(portal.l.x, portal.l.y);
+        glEnd();
+    }
+}
+
 void App::render() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -289,7 +307,8 @@ void App::render() {
     drawEndTriangles();
 
     if (appState>=5) {
-        drawFillLayer(0.5f);
+        drawFillLayer(0.65f);
+        drawPortals();
     }
 
     drawEndPoints();
