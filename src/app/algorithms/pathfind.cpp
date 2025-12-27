@@ -1,10 +1,11 @@
 #include <config.h>
 #include <pathfind.h>
+
 #include <geometry.h>
 #include <util.h>
 
-bool searching = 0;
-bool finished = 0;
+static bool searching = 0;
+static bool finished = 0;
 
 int n;
 std::queue<int> q;

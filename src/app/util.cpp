@@ -17,3 +17,7 @@ float getRandFloat(float min, float max) {
 float lerpFloat(float a, float b, float amount) {
     return a * (1.0f-amount) + b * amount;
 }
+
+float crossProduct(glm::vec2 a, glm::vec2 b, glm::vec2 c) {
+    return (b.x-a.x)*(c.y-a.y) - (c.x-a.x)*(b.y-a.y);
+}

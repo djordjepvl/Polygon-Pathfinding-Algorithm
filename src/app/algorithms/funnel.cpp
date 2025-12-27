@@ -5,11 +5,85 @@
 #include <util.h>
 
 
+static bool finding = 0;
+static bool finished = 0;
+
+int currPrtl = 0;
+
+void Funnel::funnelStart() {
+    currPrtl = 0;
+    finding = 1;
+    path.clear();
+    leftIndx = -1;
+    leftPoint = startPoint;
+    rightIndx = -1;
+    rightPoint = startPoint;
+    path.push_back(startPoint);
+}
+bool Funnel::funnelAdvance() {
+    if (finished) return 0;
+    if (!finding) funnelStart();
+
+    glm::vec2 apex = path.back();
+    glm::vec2 currL = portals[currPrtl].l;
+    glm::vec2 currR = portals[currPrtl].r;
+
+    if (currL == endPoint) {
+        funnelEnd();
+        return 1;
+    }
+
+    if (leftPoint == apex) {
+        leftPoint = currL;
+        leftIndx = currPrtl;
+    }
+    else if (crossProduct(apex, leftPoint, currL) >= 0.0f) {
+        leftPoint = currL;
+        leftIndx = currPrtl;
+        if (crossProduct(apex, leftPoint, rightPoint) <= 0.0f) {
+            path.push_back(rightPoint);
+            apex = rightPoint;
+            leftPoint = apex;
+            currPrtl = rightIndx;
+            leftIndx = rightIndx;
+            return 1;
+        }   
+    }
+    if (rightPoint == apex) {
+        rightPoint = currR;
+        rightIndx = currPrtl;
+    }
+    else if (crossProduct(apex, rightPoint, currR) <= 0.0f) {
+        rightPoint = currR;
+        rightIndx = currPrtl;
+        if (crossProduct(apex, rightPoint, leftPoint) >= 0.0f) {
+            path.push_back(leftPoint);
+            apex = leftPoint;
+            rightPoint = apex;
+            rightIndx = leftIndx;
+            currPrtl = leftIndx;
+            return 1;
+        }
+    }
+
+    currPrtl++;
+    return 1;
+}
+void Funnel::funnelEnd() {
+    path.push_back(endPoint);
+    finding = 0;
+}
+
+
 void Funnel::findPortals() {
+    finding = 0;
+    finished = 0;
+    currPrtl = 0;
     portals.clear();
+    path.clear();
     if (trianglePath.empty()) return;
 
-    portals.push_back({startPoint, startPoint});
+    //portals.push_back({startPoint, startPoint});
 
     for (int i = 0; i < trianglePath.size() - 1; i++) {
         int curr = trianglePath[i];

@@ -22,6 +22,8 @@ glm::vec4 graphColor = glm::vec4(0.941f, 0.651f, 0.259f, 1.0f);
 glm::vec4 pathColor = glm::vec4(0.255f, 0.961f, 0.914f, 1.0f);
 glm::vec4 trianglePathColor = glm::vec4(0.098f, 0.478f, 1.0f, 1.0f);
 
+glm::vec4 funnelLeftColor = glm::vec4(0.988f, 0.976f, 0.208f, 1.0f);
+glm::vec4 funnelRightColor = glm::vec4(0.988f, 0.208f, 0.929f, 1.0f);
 
 glm::vec4 desaturateColor(glm::vec4 color, float amount) {
     glm::vec3 luminanceWeights(0.299f, 0.587f, 0.114f);
@@ -109,6 +111,12 @@ void App::update() {
                 advanceAppState();
                 stepHold = 0;
             break;
+            case 5:
+                if (!Funnel::funnelAdvance()) {
+                    advanceAppState();
+                    stepHold = 0;
+                }
+            break;
         }
     }
     doStep = 0;
@@ -119,6 +127,7 @@ void App::update() {
             nodes.clear();
             trianglePath.clear();
             portals.clear();
+            path.clear();
             Generator::generateProblem();
             App::calculateView();
             appState = 0;
@@ -133,7 +142,7 @@ void App::update() {
             Funnel::findPortals();
         break;
         case 6:
-            
+            while (Funnel::funnelAdvance());
         break;
     }
     prevState = appState;
@@ -258,23 +267,38 @@ void drawTrianglePath() {
 
 void drawPortals() {
     setColor(trianglePathColor);
-    for (auto& portal : portals) {
-        setColor(trianglePathColor);
+    int n = portals.size();
+    for (int i=0; i<n; i++) {
+        if (currPrtl == i) setColor(brightenColor(trianglePathColor, 0.8f));
+        else setColor(trianglePathColor);
         glBegin(GL_LINES);
-        glVertex2f(portal.l.x, portal.l.y);
-        glVertex2f(portal.r.x, portal.r.y);
-        glEnd();
-        glPointSize(10.0f);
-        glBegin(GL_POINTS);
-        setColor(endPointColor);
-        glVertex2f(portal.r.x, portal.r.y);
-        glEnd();
-        glPointSize(5.0f);
-        glBegin(GL_POINTS);
-        setColor(startPointColor);
-        glVertex2f(portal.l.x, portal.l.y);
+        glVertex2f(portals[i].l.x, portals[i].l.y);
+        glVertex2f(portals[i].r.x, portals[i].r.y);
         glEnd();
     }
+}
+
+void drawFunnelLines() {
+    if (path.empty()) return;
+    setColor(funnelLeftColor);
+    glBegin(GL_LINES);
+    glVertex2f(path.back().x, path.back().y);
+    glVertex2f(leftPoint.x, leftPoint.y);
+    glEnd();
+    setColor(funnelRightColor);
+    glBegin(GL_LINES);
+    glVertex2f(path.back().x, path.back().y);
+    glVertex2f(rightPoint.x, rightPoint.y);
+    glEnd();
+}
+
+void drawPath() {
+    setColor(pathColor);
+    glBegin(GL_LINES);
+    for (auto& point : path) {
+        glVertex2f(point.x, point.y);
+    }
+    glEnd();
 }
 
 void App::render() {
@@ -309,6 +333,8 @@ void App::render() {
     if (appState>=5) {
         drawFillLayer(0.65f);
         drawPortals();
+        drawFunnelLines();
+        drawPath();
     }
 
     drawEndPoints();

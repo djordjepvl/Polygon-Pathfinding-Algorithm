@@ -11,6 +11,11 @@ int startTriangle;
 int endTriangle;
 std::vector<int> trianglePath;
 std::vector<Portal> portals;
+std::vector<glm::vec2> path;
+int leftIndx;
+glm::vec2 leftPoint;
+int rightIndx;
+glm::vec2 rightPoint;
 
 
 void Geometry::printPolygon() {

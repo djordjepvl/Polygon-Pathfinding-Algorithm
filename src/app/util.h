@@ -15,3 +15,5 @@ float avgFloat(Args... args) {
 }
 
 float lerpFloat(float a, float b, float amount);
+
+float crossProduct(glm::vec2 a, glm::vec2 b, glm::vec2 c);
