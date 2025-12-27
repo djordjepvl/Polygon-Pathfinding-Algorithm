@@ -26,11 +26,10 @@ bool Funnel::funnelAdvance() {
     currPrtl++;
 
     if (currPrtl >= portals.size()) {
-        std::cout << "good ";
         funnelEnd();
         return 0;
     }
-    
+
     glm::vec2 apex = path.back();
     glm::vec2 currL = portals[currPrtl].l;
     glm::vec2 currR = portals[currPrtl].r;
@@ -74,7 +73,6 @@ bool Funnel::funnelAdvance() {
     return 1;
 }
 void Funnel::funnelEnd() {
-    path.push_back(endPoint);
     finding = 0;
     finished = 1;
 }

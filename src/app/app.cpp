@@ -63,7 +63,7 @@ bool advanced = 0;
 void advanceAppState() {
     if (advanced) return;
     prevState = appState;
-    appState = std::min(appState+1, 6);
+    appState = std::min(appState+1, 7);
     advanced = 1;
 }
 
@@ -269,8 +269,8 @@ void drawPortals() {
     setColor(trianglePathColor);
     int n = portals.size();
     for (int i=0; i<n; i++) {
-        if (currPrtl == i) setColor(brightenColor(trianglePathColor, 0.8f));
-        else setColor(trianglePathColor);
+        if (currPrtl == i) setColor(brightenColor(trianglePathColor, 0.9f));
+        else setColor(brightenColor(trianglePathColor, 0.2f));
         glBegin(GL_LINES);
         glVertex2f(portals[i].l.x, portals[i].l.y);
         glVertex2f(portals[i].r.x, portals[i].r.y);
@@ -319,7 +319,7 @@ void App::render() {
     drawPolyTriangles();
     drawPolyEdges();
     
-    if (appState>=3) {
+    if (appState>=3 && appState<7) {
         drawFillLayer(0.65f);
         drawTrianglePath();
     }
@@ -329,14 +329,15 @@ void App::render() {
         drawGraphNodes();
     }
     
-    drawEndTriangles();
-
-    if (appState>=5) {
-        drawFillLayer(0.65f);
+    if (appState >= 3 && appState < 7) drawEndTriangles();
+    
+    if (appState>=5 && appState<7) {
+        drawFillLayer(0.5f);
         drawPortals();
-        if (appState <6) drawFunnelLines();
-        drawPath();
+        if (appState<6) drawFunnelLines();
     }
+
+    if (appState>=5) drawPath();
 
     drawEndPoints();
 }
