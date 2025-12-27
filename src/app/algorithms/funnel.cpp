@@ -11,7 +11,7 @@ static bool finished = 0;
 int currPrtl = 0;
 
 void Funnel::funnelStart() {
-    currPrtl = 0;
+    currPrtl = -1;
     finding = 1;
     path.clear();
     leftIndx = -1;
@@ -23,27 +23,31 @@ void Funnel::funnelStart() {
 bool Funnel::funnelAdvance() {
     if (finished) return 0;
     if (!finding) funnelStart();
+    currPrtl++;
 
+    if (currPrtl >= portals.size()) {
+        std::cout << "good ";
+        funnelEnd();
+        return 0;
+    }
+    
     glm::vec2 apex = path.back();
     glm::vec2 currL = portals[currPrtl].l;
     glm::vec2 currR = portals[currPrtl].r;
 
-    if (currL == endPoint) {
-        funnelEnd();
-        return 1;
-    }
 
     if (leftPoint == apex) {
         leftPoint = currL;
         leftIndx = currPrtl;
     }
-    else if (crossProduct(apex, leftPoint, currL) >= 0.0f) {
+    else if (crossProduct(apex, leftPoint, currL) <= 0.0f) {
         leftPoint = currL;
         leftIndx = currPrtl;
-        if (crossProduct(apex, leftPoint, rightPoint) <= 0.0f) {
+        if (crossProduct(apex, leftPoint, rightPoint) >= 0.0f) {
             path.push_back(rightPoint);
             apex = rightPoint;
             leftPoint = apex;
+            rightPoint = apex;
             currPrtl = rightIndx;
             leftIndx = rightIndx;
             return 1;
@@ -53,25 +57,26 @@ bool Funnel::funnelAdvance() {
         rightPoint = currR;
         rightIndx = currPrtl;
     }
-    else if (crossProduct(apex, rightPoint, currR) <= 0.0f) {
+    else if (crossProduct(apex, rightPoint, currR) >= 0.0f) {
         rightPoint = currR;
         rightIndx = currPrtl;
-        if (crossProduct(apex, rightPoint, leftPoint) >= 0.0f) {
+        if (crossProduct(apex, rightPoint, leftPoint) <= 0.0f) {
             path.push_back(leftPoint);
             apex = leftPoint;
             rightPoint = apex;
+            leftPoint = apex;
             rightIndx = leftIndx;
             currPrtl = leftIndx;
             return 1;
         }
     }
 
-    currPrtl++;
     return 1;
 }
 void Funnel::funnelEnd() {
     path.push_back(endPoint);
     finding = 0;
+    finished = 1;
 }
 
 

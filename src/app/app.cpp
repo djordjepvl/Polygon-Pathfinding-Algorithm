@@ -84,7 +84,7 @@ void App::input(int key, int action) {
 void App::update() {
     if (stepHold) {
         stepHold++;
-        doStep = stepHold%10==0;
+        doStep = (stepHold-1)%20==0;
     }
 
     if (doStep) {
@@ -293,8 +293,9 @@ void drawFunnelLines() {
 }
 
 void drawPath() {
+    if (path.size() < 2) return;
     setColor(pathColor);
-    glBegin(GL_LINES);
+    glBegin(GL_LINE_STRIP);
     for (auto& point : path) {
         glVertex2f(point.x, point.y);
     }
@@ -333,7 +334,7 @@ void App::render() {
     if (appState>=5) {
         drawFillLayer(0.65f);
         drawPortals();
-        drawFunnelLines();
+        if (appState <6) drawFunnelLines();
         drawPath();
     }
 
