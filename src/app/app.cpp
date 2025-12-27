@@ -117,6 +117,10 @@ void App::update() {
                     stepHold = 0;
                 }
             break;
+            case 6:
+                advanceAppState();
+                stepHold = 0;
+            break;
         }
     }
     doStep = 0;
@@ -191,16 +195,44 @@ void drawEndTriangles() {
     glm::vec2 a = polygon[indices[endTriangle*3]];
     glm::vec2 b = polygon[indices[endTriangle*3+1]];
     glm::vec2 c = polygon[indices[endTriangle*3+2]];
+    
+    
+    glm::vec4 fillCol = endPointColor;
+    fillCol.a = 0.15f; 
+    setColor(fillCol);
+    
+    glBegin(GL_TRIANGLES);
+    glVertex2f(a.x, a.y);
+    glVertex2f(b.x, b.y);
+    glVertex2f(c.x, c.y);
+    glEnd();
+
+    setColor(endPointColor);
+    
     glBegin(GL_LINE_LOOP);
     glVertex2f(a.x, a.y);
     glVertex2f(b.x, b.y);
     glVertex2f(c.x, c.y);
     glEnd();
+
     if (startTriangle == endTriangle) glLineWidth(2.0f);
-    setColor(startPointColor);
+
     a = polygon[indices[startTriangle*3]];
     b = polygon[indices[startTriangle*3+1]];
     c = polygon[indices[startTriangle*3+2]];
+    
+    fillCol = startPointColor;
+    fillCol.a = 0.15f; 
+    setColor(fillCol);
+    
+    glBegin(GL_TRIANGLES);
+    glVertex2f(a.x, a.y);
+    glVertex2f(b.x, b.y);
+    glVertex2f(c.x, c.y);
+    glEnd();
+
+    setColor(startPointColor);
+
     glBegin(GL_LINE_LOOP);
     glVertex2f(a.x, a.y);
     glVertex2f(b.x, b.y);
@@ -249,6 +281,7 @@ void drawTrianglePath() {
     
     glBegin(GL_TRIANGLES);
     for (auto& i : trianglePath) {
+        if (i == startTriangle || i == endTriangle) continue;
         glVertex2f(polygon[indices[i*3]].x,   polygon[indices[i*3]].y);
         glVertex2f(polygon[indices[i*3+1]].x, polygon[indices[i*3+1]].y);
         glVertex2f(polygon[indices[i*3+2]].x, polygon[indices[i*3+2]].y);
@@ -257,6 +290,7 @@ void drawTrianglePath() {
 
     setColor(trianglePathColor);
     for (auto& i : trianglePath) {
+        if (i == startTriangle || i == endTriangle) continue;
         glBegin(GL_LINE_LOOP);
         glVertex2f(polygon[indices[i*3]].x , polygon[indices[i*3]].y);
         glVertex2f(polygon[indices[i*3+1]].x , polygon[indices[i*3+1]].y);
@@ -270,7 +304,7 @@ void drawPortals() {
     int n = portals.size();
     for (int i=0; i<n; i++) {
         if (currPrtl == i) setColor(brightenColor(trianglePathColor, 0.9f));
-        else setColor(brightenColor(trianglePathColor, 0.2f));
+        else setColor(trianglePathColor);
         glBegin(GL_LINES);
         glVertex2f(portals[i].l.x, portals[i].l.y);
         glVertex2f(portals[i].r.x, portals[i].r.y);
@@ -332,7 +366,7 @@ void App::render() {
     if (appState >= 3 && appState < 7) drawEndTriangles();
     
     if (appState>=5 && appState<7) {
-        drawFillLayer(0.5f);
+        drawFillLayer(0.65f);
         drawPortals();
         if (appState<6) drawFunnelLines();
     }
