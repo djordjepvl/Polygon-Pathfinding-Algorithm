@@ -6,6 +6,11 @@
 #include <cmath>
 #include <iostream>
 
+float getAngle(glm::vec2 a, glm::vec2 b, glm::vec2 c) {
+    glm::vec2 ba = glm::normalize(a - b);
+    glm::vec2 bc = glm::normalize(c - b);
+    return std::acos(std::clamp(glm::dot(ba, bc), -1.0f, 1.0f));
+}
 
 bool isPointInTri(glm::vec2 p, glm::vec2 a, glm::vec2 b, glm::vec2 c) {
     float area = 0.5f * (-b.y * c.x + a.y * (-b.x + c.x) + a.x*(b.y - c.y) + b.x*c.y);
@@ -19,7 +24,6 @@ bool isPointInTri(glm::vec2 p, glm::vec2 a, glm::vec2 b, glm::vec2 c) {
     return s >= -eps && t >= -eps && u >= -eps;
 }
 
-// helper: check if triangle abc is convex (CCW assumed)
 bool isConvex(glm::vec2 a, glm::vec2 b, glm::vec2 c) {
     float cross = (b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x);
     return cross > 1e-8f;
@@ -29,7 +33,6 @@ void Triangulate::triangulatePolygon() {
     indices.clear();
     if (polygon.size() < 3) return;
 
-    // make a working copy of indices
     std::vector<int> idx(polygon.size());
     for (int i = 0; i < polygon.size(); i++) idx[i] = i;
 
@@ -38,15 +41,15 @@ void Triangulate::triangulatePolygon() {
 
     while (idx.size() > 2 && safety++ < maxIters) {
         bool earFound = false;
+        int bestEarIdx = -1;
+        float maxAngle = -1.0f;
 
         for (int i = 0; i < idx.size(); i++) {
             int prev = idx[(i + idx.size() - 1) % idx.size()];
             int curr = idx[i];
             int next = idx[(i + 1) % idx.size()];
 
-            glm::vec2 a = polygon[prev];
-            glm::vec2 b = polygon[curr];
-            glm::vec2 c = polygon[next];
+            glm::vec2 a = polygon[prev], b = polygon[curr], c = polygon[next];
 
             if (!isConvex(a, b, c)) continue;
 
@@ -61,18 +64,24 @@ void Triangulate::triangulatePolygon() {
             }
 
             if (!hasInside) {
-                // ear found: clip it
-                indices.push_back(prev);
-                indices.push_back(curr);
-                indices.push_back(next);
-                idx.erase(idx.begin() + i);
-                earFound = true;
-                break;
+                // Scoring: We want the "bluntest" ear (largest angle)
+                float angle = getAngle(a, b, c);
+                if (angle > maxAngle) {
+                    maxAngle = angle;
+                    bestEarIdx = i;
+                }
             }
         }
 
-        // fallback if no ear found (prevents infinite loop)
-        if (!earFound && idx.size() >= 3) {
+        // 2. Clip the best ear found
+        if (bestEarIdx != -1) {
+            int i = bestEarIdx;
+            indices.push_back(idx[(i + idx.size() - 1) % idx.size()]);
+            indices.push_back(idx[i]);
+            indices.push_back(idx[(i + 1) % idx.size()]);
+            idx.erase(idx.begin() + i);
+        } else {
+            // Emergency fallback: just clip anything to avoid infinite loop
             indices.push_back(idx[0]);
             indices.push_back(idx[1]);
             indices.push_back(idx[2]);
