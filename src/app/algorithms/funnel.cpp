@@ -17,6 +17,7 @@ void Funnel::funnelStart() {
     leftIndx = -1;
     leftPoint = startPoint;
     rightIndx = -1;
+    
     rightPoint = startPoint;
     path.push_back(startPoint);
 }
@@ -73,6 +74,7 @@ bool Funnel::funnelAdvance() {
     return 1;
 }
 void Funnel::funnelEnd() {
+
     if (path.back() != endPoint) path.push_back(endPoint);
     finding = 0;
     finished = 1;
