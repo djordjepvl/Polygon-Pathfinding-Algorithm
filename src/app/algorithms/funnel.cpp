@@ -17,7 +17,7 @@ glm::vec2 currR;
 int currPrtl = 0;
 
 void Funnel::funnelStart() {
-    currPrtl = -1;
+    currPrtl = 0;
     finding = 1;
     path.clear();
     leftIndx = -1;
@@ -85,8 +85,9 @@ bool portalAdvance() {
 bool Funnel::funnelAdvance() {
     if (finished) return 0;
     if (!finding) funnelStart();
-
+    
     while (true) {
+        std::cout<<funnelState<<std::endl;
         switch (funnelState) {
             case 0:
                 if (!portalAdvance()) return 0;
