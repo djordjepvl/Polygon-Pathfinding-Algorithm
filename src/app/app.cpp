@@ -306,8 +306,22 @@ void drawPortals() {
     setColor(trianglePathColor);
     int n = portals.size();
     for (int i=0; i<n; i++) {
-        if (currPrtl == i) setColor(brightenColor(trianglePathColor, 0.9f));
-        else setColor(trianglePathColor);
+        if (currPrtl == i) {
+            setColor(brightenColor(trianglePathColor, 0.9f));
+            if (portals[i].l == portals[i].r) {
+                glBegin(GL_POINTS);
+                glVertex2f(portals[i].l.x, portals[i].l.y);
+                glEnd();
+            }
+            else {
+                glBegin(GL_LINES);
+                glVertex2f(portals[i].l.x, portals[i].l.y);
+                glVertex2f(portals[i].r.x, portals[i].r.y);
+                glEnd();
+            }
+            continue;
+        }
+        setColor(trianglePathColor);
         glBegin(GL_LINES);
         glVertex2f(portals[i].l.x, portals[i].l.y);
         glVertex2f(portals[i].r.x, portals[i].r.y);

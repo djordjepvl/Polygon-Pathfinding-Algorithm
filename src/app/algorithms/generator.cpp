@@ -58,7 +58,7 @@ void Generator::generatePolygon() {
         if (entry.is_regular_file()) ++exampleCount;
     }
     std::string randIndex = std::to_string(getRandInt(1, exampleCount));
-    //randIndex = "5"; //16
+    randIndex = "5"; //16
     std::string fileName = namePrefix + randIndex + nameSuffix;
     loadPolygon(fileName);
 }
