@@ -8,6 +8,12 @@
 static bool finding = 0;
 static bool finished = 0;
 
+static int funnelState = -1;
+
+glm::vec2 apex;
+glm::vec2 currL;
+glm::vec2 currR;
+
 int currPrtl = 0;
 
 void Funnel::funnelStart() {
@@ -17,25 +23,12 @@ void Funnel::funnelStart() {
     leftIndx = -1;
     leftPoint = startPoint;
     rightIndx = -1;
-    
     rightPoint = startPoint;
     path.push_back(startPoint);
+    funnelState = 0;
 }
-bool Funnel::funnelAdvance() {
-    if (finished) return 0;
-    if (!finding) funnelStart();
-    currPrtl++;
-
-    if (currPrtl >= portals.size()) {
-        funnelEnd();
-        return 0;
-    }
-
-    glm::vec2 apex = path.back();
-    glm::vec2 currL = portals[currPrtl].l;
-    glm::vec2 currR = portals[currPrtl].r;
-
-
+    
+bool leftFunnelAdvance() {
     if (leftPoint == apex) {
         leftPoint = currL;
         leftIndx = currPrtl;
@@ -51,8 +44,11 @@ bool Funnel::funnelAdvance() {
             currPrtl = rightIndx;
             leftIndx = rightIndx;
             return 1;
-        }   
+        }
     }
+    return 0;
+}
+bool rightFunnelAdvance() {
     if (rightPoint == apex) {
         rightPoint = currR;
         rightIndx = currPrtl;
@@ -70,14 +66,45 @@ bool Funnel::funnelAdvance() {
             return 1;
         }
     }
+    return 0;
+}
+bool portalAdvance() {
+    currPrtl++;
+    if (currPrtl >= portals.size()) {
+        Funnel::funnelEnd();
+        return 0;
+    }
+
+    apex = path.back();
+    currL = portals[currPrtl].l;
+    currR = portals[currPrtl].r;
+    return 1;
+}
+bool Funnel::funnelAdvance() {
+    if (finished) return 0;
+    if (!finding) funnelStart();
+    
+    if (funnelState == 0) {
+        if (!portalAdvance()) return 0;
+        funnelState = 1;
+    }
+    else if (funnelState == 1) {
+        leftFunnelAdvance();
+        funnelState = 2;
+    }
+    else if (funnelState == 2) {
+        rightFunnelAdvance();
+        funnelState = 0;
+    }
 
     return 1;
 }
 void Funnel::funnelEnd() {
-
+    apex = path.back();
     if (path.back() != endPoint) path.push_back(endPoint);
     finding = 0;
     finished = 1;
+    funnelState = -1;
 }
 
 
@@ -85,6 +112,7 @@ void Funnel::findPortals() {
     finding = 0;
     finished = 0;
     currPrtl = 0;
+    funnelState = -1;
     portals.clear();
     path.clear();
     if (trianglePath.empty()) return;

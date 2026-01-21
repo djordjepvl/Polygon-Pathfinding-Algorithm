@@ -83,8 +83,8 @@ void App::input(int key, int action) {
 
 void App::update() {
     if (stepHold) {
+        doStep = (stepHold-1)%200==0;
         stepHold++;
-        doStep = (stepHold-1)%20==0;
     }
 
     if (doStep) {

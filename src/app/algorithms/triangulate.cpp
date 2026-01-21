@@ -64,7 +64,6 @@ void Triangulate::triangulatePolygon() {
             }
 
             if (!hasInside) {
-                // Scoring: We want the "bluntest" ear (largest angle)
                 float angle = getAngle(a, b, c);
                 if (angle > maxAngle) {
                     maxAngle = angle;
@@ -73,7 +72,6 @@ void Triangulate::triangulatePolygon() {
             }
         }
 
-        // 2. Clip the best ear found
         if (bestEarIdx != -1) {
             int i = bestEarIdx;
             indices.push_back(idx[(i + idx.size() - 1) % idx.size()]);
@@ -81,7 +79,6 @@ void Triangulate::triangulatePolygon() {
             indices.push_back(idx[(i + 1) % idx.size()]);
             idx.erase(idx.begin() + i);
         } else {
-            // Emergency fallback: just clip anything to avoid infinite loop
             indices.push_back(idx[0]);
             indices.push_back(idx[1]);
             indices.push_back(idx[2]);
