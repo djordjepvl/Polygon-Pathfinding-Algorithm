@@ -31,7 +31,6 @@ void Funnel::funnelStart() {
 }
     
 bool leftFunnelAdvance() {
-    
     if (leftPoint == apex) {
         leftPoint = currL;
         leftIndx = currPrtl;
@@ -39,7 +38,7 @@ bool leftFunnelAdvance() {
     else if (crossProduct(apex, leftPoint, currL) <= 0.0f) {
         leftPoint = currL;
         leftIndx = currPrtl;
-        if (crossProduct(apex, leftPoint, rightPoint) >= 0.0f) {
+        if (crossProduct(apex, leftPoint, rightPoint) > 0.0f) {
             path.push_back(rightPoint);
             apex = rightPoint;
             leftPoint = apex;
@@ -52,7 +51,6 @@ bool leftFunnelAdvance() {
     return 0;
 }
 bool rightFunnelAdvance() {
-
     if (rightPoint == apex) {
         rightPoint = currR;
         rightIndx = currPrtl;
@@ -60,13 +58,13 @@ bool rightFunnelAdvance() {
     else if (crossProduct(apex, rightPoint, currR) >= 0.0f) {
         rightPoint = currR;
         rightIndx = currPrtl;
-        if (crossProduct(apex, rightPoint, leftPoint) <= 0.0f) {
+        if (crossProduct(apex, rightPoint, leftPoint) < 0.0f) {
             path.push_back(leftPoint);
             apex = leftPoint;
             rightPoint = apex;
             leftPoint = apex;
-            rightIndx = leftIndx;
             currPrtl = leftIndx;
+            rightIndx = leftIndx;
             return 1;
         }
     }
@@ -95,9 +93,9 @@ bool Funnel::funnelAdvance() {
                 funnelState = 1;
                 return 1;
             case 1:
-                leftTarget = portals[currPrtl].l;
-                if (leftTarget == leftPoint) funnelState = 3;
+                if (portals[currPrtl].l == leftPoint) funnelState = 3;
                 else {
+                    leftTarget = portals[currPrtl].l;
                     funnelState = 2;
                     return 1;
                 }
@@ -108,9 +106,9 @@ bool Funnel::funnelAdvance() {
                 funnelState = 3;
                 return 1;
             case 3:
-                rightTarget = portals[currPrtl].r;
-                if (rightTarget == rightPoint) funnelState = 0;
+                if (portals[currPrtl].r == rightPoint) funnelState = 0;
                 else {
+                    rightTarget = portals[currPrtl].r;
                     funnelState = 4;
                     return 1;
                 }
@@ -122,7 +120,6 @@ bool Funnel::funnelAdvance() {
                 return 1;
         }
     }
-    return 1;
 }
 void Funnel::funnelEnd() {
     apex = path.back();
@@ -141,6 +138,8 @@ void Funnel::findPortals() {
     portals.clear();
     path.clear();
     if (trianglePath.empty()) return;
+
+    portals.push_back({startPoint, startPoint});
 
     for (int i = 0; i < trianglePath.size() - 1; i++) {
         int curr = trianglePath[i];

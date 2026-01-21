@@ -380,13 +380,14 @@ void App::render() {
     
     if (appState >= 3 && appState < 7) drawEndTriangles();
     
+    
+    if (appState>=5 && appState<7) drawFillLayer(0.65f);
+    drawEndPoints();
     if (appState>=5 && appState<7) {
-        drawFillLayer(0.65f);
         drawPortals();
         if (appState<6) drawFunnelLines();
     }
 
     if (appState>=5) drawPath();
 
-    drawEndPoints();
 }
