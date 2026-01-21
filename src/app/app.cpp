@@ -154,8 +154,11 @@ void App::update() {
 }
 
 
-void setColor(glm::vec4 color) {
-    glColor4f(color.r, color.g, color.b, color.a);
+void setColor(glm::vec4 color, float opacityOverride = -1) {
+    if (opacityOverride >= 0.0f && opacityOverride <= 1.0f)
+        glColor4f(color.r, color.g, color.b, opacityOverride);
+    else
+        glColor4f(color.r, color.g, color.b, color.a);
 }
 
 void drawFillLayer(float opacity) {
@@ -314,6 +317,7 @@ void drawPortals() {
 
 void drawFunnelLines() {
     if (path.empty()) return;
+    
     setColor(funnelLeftColor);
     glBegin(GL_LINES);
     glVertex2f(path.back().x, path.back().y);
@@ -323,6 +327,17 @@ void drawFunnelLines() {
     glBegin(GL_LINES);
     glVertex2f(path.back().x, path.back().y);
     glVertex2f(rightPoint.x, rightPoint.y);
+    glEnd();
+    
+    setColor(funnelLeftColor, 0.5f);
+    glBegin(GL_LINES);
+    glVertex2f(path.back().x, path.back().y);
+    glVertex2f(leftTarget.x, leftTarget.y);
+    glEnd();
+    setColor(funnelRightColor, 0.5f);
+    glBegin(GL_LINES);
+    glVertex2f(path.back().x, path.back().y);
+    glVertex2f(rightTarget.x, rightTarget.y);
     glEnd();
 }
 

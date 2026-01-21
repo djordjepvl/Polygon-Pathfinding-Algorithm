@@ -38,8 +38,10 @@ extern std::vector<Portal> portals;
 extern std::vector<glm::vec2> path;
 extern int leftIndx;
 extern glm::vec2 leftPoint;
+extern glm::vec2 leftTarget;
 extern int rightIndx;
 extern glm::vec2 rightPoint;
+extern glm::vec2 rightTarget;
 
 namespace Geometry {
     void printPolygon();

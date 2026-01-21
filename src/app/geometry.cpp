@@ -14,8 +14,10 @@ std::vector<Portal> portals;
 std::vector<glm::vec2> path;
 int leftIndx;
 glm::vec2 leftPoint;
+glm::vec2 leftTarget;
 int rightIndx;
 glm::vec2 rightPoint;
+glm::vec2 rightTarget;
 
 
 void Geometry::printPolygon() {

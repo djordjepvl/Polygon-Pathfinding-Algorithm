@@ -22,13 +22,16 @@ void Funnel::funnelStart() {
     path.clear();
     leftIndx = -1;
     leftPoint = startPoint;
+    leftTarget = startPoint;
     rightIndx = -1;
     rightPoint = startPoint;
+    rightTarget = startPoint;
     path.push_back(startPoint);
     funnelState = 0;
 }
     
 bool leftFunnelAdvance() {
+    
     if (leftPoint == apex) {
         leftPoint = currL;
         leftIndx = currPrtl;
@@ -49,6 +52,7 @@ bool leftFunnelAdvance() {
     return 0;
 }
 bool rightFunnelAdvance() {
+
     if (rightPoint == apex) {
         rightPoint = currR;
         rightIndx = currPrtl;
@@ -83,20 +87,41 @@ bool portalAdvance() {
 bool Funnel::funnelAdvance() {
     if (finished) return 0;
     if (!finding) funnelStart();
-    
-    if (funnelState == 0) {
-        if (!portalAdvance()) return 0;
-        funnelState = 1;
-    }
-    else if (funnelState == 1) {
-        leftFunnelAdvance();
-        funnelState = 2;
-    }
-    else if (funnelState == 2) {
-        rightFunnelAdvance();
-        funnelState = 0;
-    }
 
+    while (true) {
+        switch (funnelState) {
+            case 0:
+                if (!portalAdvance()) return 0;
+                funnelState = 1;
+                return 1;
+            case 1:
+                leftTarget = portals[currPrtl].l;
+                if (leftTarget == leftPoint) funnelState = 3;
+                else {
+                    funnelState = 2;
+                    return 1;
+                }
+                break;
+            case 2:
+                leftFunnelAdvance();
+                leftTarget = path.back();
+                funnelState = 3;
+                return 1;
+            case 3:
+                rightTarget = portals[currPrtl].r;
+                if (rightTarget == rightPoint) funnelState = 0;
+                else {
+                    funnelState = 4;
+                    return 1;
+                }
+                break;
+            case 4:
+                rightFunnelAdvance();
+                rightTarget = path.back();
+                funnelState = 0;
+                return 1;
+        }
+    }
     return 1;
 }
 void Funnel::funnelEnd() {
