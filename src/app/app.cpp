@@ -74,8 +74,16 @@ void App::input(int key, int action) {
         advanceAppState();
         appState = -1;
     }
-    if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) advanceAppState();
-    if (key == GLFW_KEY_F) {
+    else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
+        advanceAppState();
+        appState = -2;
+    }
+    else if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
+        advanceAppState();
+        appState = -3;
+    }
+    else if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) advanceAppState();
+    else if (key == GLFW_KEY_F) {
         if (action == GLFW_PRESS) stepHold = 1;
         else if (action == GLFW_RELEASE) stepHold = 0;
     }
@@ -92,35 +100,35 @@ void App::update() {
             case 0:
                 advanceAppState();
                 stepHold = 0;
-            break;
+                break;
             case 1:
                 if (!PathFind::bfsAdvance()) {
                     advanceAppState();
                     stepHold = 0;
                 }
-            break;
+                break;
             case 2:
                 advanceAppState();
                 stepHold = 0;
-            break;
+                break;
             case 3:
                 advanceAppState();
                 stepHold = 0;
-            break;
+                break;
             case 4:
                 advanceAppState();
                 stepHold = 0;
-            break;
+                break;
             case 5:
                 if (!Funnel::funnelAdvance()) {
                     advanceAppState();
                     stepHold = 0;
                 }
-            break;
+                break;
             case 6:
                 advanceAppState();
                 stepHold = 0;
-            break;
+                break;
         }
     }
     doStep = 0;
@@ -135,19 +143,37 @@ void App::update() {
             Problem::load();
             App::calculateView();
             appState = 0;
-        break;
+            break;
+        case -2:
+            nodes.clear();
+            trianglePath.clear();
+            portals.clear();
+            path.clear();
+            Problem::loadPrev();
+            App::calculateView();
+            appState = 0;
+            break;
+        case -3:
+            nodes.clear();
+            trianglePath.clear();
+            portals.clear();
+            path.clear();
+            Problem::loadNext();
+            App::calculateView();
+            appState = 0;
+            break;
         case 1:
             PathFind::createGraph();
-        break;
+            break;
         case 2:
             while (PathFind::bfsAdvance());
-        break;
+            break;
         case 5:
             Funnel::findPortals();
-        break;
+            break;
         case 6:
             while (Funnel::funnelAdvance());
-        break;
+            break;
     }
     prevState = appState;
     advanced = 0;

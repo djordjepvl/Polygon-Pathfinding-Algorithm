@@ -6,6 +6,14 @@
 #include <triangulate.h>
 
 int currPolyIndex = -1;
+int exampleCount = -1;
+
+void exampleCountUpdate() {
+    exampleCount = 0;
+    for (const auto& entry : std::filesystem::directory_iterator(examplesPath)) {
+        if (entry.is_regular_file()) ++exampleCount;
+    }
+}
 
 void Problem::load(std::string fileName) {
     polygon.clear();
@@ -21,10 +29,7 @@ void Problem::load(std::string fileName) {
 void Problem::load(int index) {
     std::string namePrefix = "polygon";
     std::string nameSuffix = ".txt";
-    int exampleCount = 0;
-    for (const auto& entry : std::filesystem::directory_iterator(examplesPath)) {
-        if (entry.is_regular_file()) ++exampleCount;
-    }
+    exampleCountUpdate();
     if (index < 1 && index > exampleCount) {
         std::cout << "Create: Index out of range!";
         return;
@@ -34,25 +39,37 @@ void Problem::load(int index) {
     load(fileName);
 }
 
-//load random poly
 void Problem::load() {
     std::string namePrefix = "polygon";
     std::string nameSuffix = ".txt";
-    int exampleCount = 0;
-    for (const auto& entry : std::filesystem::directory_iterator(examplesPath)) {
-        if (entry.is_regular_file()) ++exampleCount;
-    }
+    exampleCountUpdate();
     int randIndex = getRandInt(1, exampleCount);
     std::string fileName = namePrefix + std::to_string(randIndex) + nameSuffix;
     currPolyIndex = randIndex;
     load(fileName);
 }
 
+void Problem::loadNext() {
+    exampleCountUpdate();
+    if (currPolyIndex < 1 && currPolyIndex > exampleCount) {
+        std::cout << "Create: Current index out of range!";
+        return;
+    }
+    load(currPolyIndex + 1 > exampleCount ? 1 : currPolyIndex + 1);
+}
+void Problem::loadPrev() {
+    exampleCountUpdate();
+    if (currPolyIndex < 1 && currPolyIndex > exampleCount) {
+        std::cout << "Create: Current index out of range!";
+        return;
+    }
+    load(currPolyIndex - 1 < 1 ? exampleCount : currPolyIndex - 1);
+}
+
 void Problem::loadPolygon(std::string fileName) {
     polygon.clear();
     
     std::filesystem::path path = std::filesystem::path(examplesPath) / fileName;
-    
     std::ifstream file(path);
     if (!file.is_open()) {
         throw std::runtime_error("Create: Failed to open polygon file: " + path.string());
