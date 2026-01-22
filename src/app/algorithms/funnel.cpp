@@ -87,7 +87,6 @@ bool Funnel::funnelAdvance() {
     if (!finding) funnelStart();
     
     while (true) {
-        std::cout<<funnelState<<std::endl;
         switch (funnelState) {
             case 0:
                 if (!portalAdvance()) return 0;

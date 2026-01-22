@@ -2,7 +2,7 @@
 #include <app.h>
 
 #include <geometry.h>
-#include <generator.h>
+#include <problem.h>
 #include <pathfind.h>
 #include <funnel.h>
 
@@ -132,7 +132,7 @@ void App::update() {
             trianglePath.clear();
             portals.clear();
             path.clear();
-            Generator::generateProblem();
+            Problem::load();
             App::calculateView();
             appState = 0;
         break;

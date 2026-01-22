@@ -22,8 +22,8 @@ add_executable(LearningOpenGL
 
     src/app/algorithms/funnel.h
     src/app/algorithms/funnel.cpp
-    src/app/algorithms/generator.h
-    src/app/algorithms/generator.cpp
+    src/app/algorithms/problem.h
+    src/app/algorithms/problem.cpp
     src/app/algorithms/pathfind.h
     src/app/algorithms/pathfind.cpp
     src/app/algorithms/triangulate.h
