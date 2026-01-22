@@ -14,6 +14,19 @@ void exampleCountUpdate() {
         if (entry.is_regular_file()) ++exampleCount;
     }
 }
+bool indexValid(int index) {
+    exampleCountUpdate();
+    return (index >= 0 && index < exampleCount);
+}
+std::string getFileAtIndex(int index) {
+    int count = 0;
+    for (const auto& entry : std::filesystem::directory_iterator(examplesPath)) {
+        if (entry.is_regular_file()) {
+            if (count++ == index) return entry.path().filename().string();
+        }
+    }
+    throw std::runtime_error("Polygon file at index " + std::to_string(index) + " not found");
+}
 
 void Problem::load(std::string fileName) {
     polygon.clear();
@@ -29,12 +42,11 @@ void Problem::load(std::string fileName) {
 void Problem::load(int index) {
     std::string namePrefix = "polygon";
     std::string nameSuffix = ".txt";
-    exampleCountUpdate();
-    if (index < 1 && index > exampleCount) {
-        std::cout << "Create: Index out of range!";
+    if (!indexValid(index)) {
+        std::cout << "Index out of range!";
         return;
     }
-    std::string fileName = namePrefix + std::to_string(index) + nameSuffix;
+    std::string fileName = getFileAtIndex(index);
     currPolyIndex = index;
     load(fileName);
 }
@@ -43,27 +55,19 @@ void Problem::load() {
     std::string namePrefix = "polygon";
     std::string nameSuffix = ".txt";
     exampleCountUpdate();
-    int randIndex = getRandInt(1, exampleCount);
-    std::string fileName = namePrefix + std::to_string(randIndex) + nameSuffix;
+    int randIndex = getRandInt(0, exampleCount-1);
+    std::string fileName = getFileAtIndex(randIndex);
     currPolyIndex = randIndex;
     load(fileName);
 }
 
 void Problem::loadNext() {
     exampleCountUpdate();
-    if (currPolyIndex < 1 && currPolyIndex > exampleCount) {
-        std::cout << "Create: Current index out of range!";
-        return;
-    }
-    load(currPolyIndex + 1 > exampleCount ? 1 : currPolyIndex + 1);
+    load(currPolyIndex + 1 >= exampleCount ? 0 : std::max(currPolyIndex + 1,0));
 }
 void Problem::loadPrev() {
     exampleCountUpdate();
-    if (currPolyIndex < 1 && currPolyIndex > exampleCount) {
-        std::cout << "Create: Current index out of range!";
-        return;
-    }
-    load(currPolyIndex - 1 < 1 ? exampleCount : currPolyIndex - 1);
+    load(currPolyIndex - 1 < 0 ? exampleCount - 1 : std::min(currPolyIndex - 1, exampleCount-1));
 }
 
 void Problem::loadPolygon(std::string fileName) {
@@ -72,7 +76,7 @@ void Problem::loadPolygon(std::string fileName) {
     std::filesystem::path path = std::filesystem::path(examplesPath) / fileName;
     std::ifstream file(path);
     if (!file.is_open()) {
-        throw std::runtime_error("Create: Failed to open polygon file: " + path.string());
+        throw std::runtime_error("Failed to open polygon file: " + path.string());
     }
     
     std::string line;
@@ -84,7 +88,7 @@ void Problem::loadPolygon(std::string fileName) {
         float x, y;
         if (!(ss >> x >> y)) {
             throw std::runtime_error(
-                "Create: Invalid vertex format in file: " + path.string()
+                "Invalid vertex format in file: " + path.string()
             );
         }
         
@@ -93,11 +97,11 @@ void Problem::loadPolygon(std::string fileName) {
     
     if (polygon.size() < 3) {
         throw std::runtime_error(
-            "Create: Polygon must have at least 3 vertices: " + path.string()
+            "Polygon must have at least 3 vertices: " + path.string()
         );
     }
     
-    std::cout << "Create: Loaded polygon \"" << fileName << "\"" << std::endl;
+    std::cout << "Loaded polygon \"" << fileName << "\", file index: " << currPolyIndex << std::endl;
 }
 
 void Problem::randomEndPoints() {
