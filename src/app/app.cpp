@@ -161,7 +161,7 @@ void App::update() {
             trianglePath.clear();
             portals.clear();
             path.clear();
-            Problem::load(14);
+            Problem::load();
             App::calculateView();
             appState = 0;
             break;
