@@ -9,6 +9,9 @@
 int appState = -1;
 int prevState = -1;
 
+double mouseX = 0;
+double mouseY = 0;
+
 bool doStep = 0;
 
 float camL, camR, camB, camT;
@@ -55,6 +58,17 @@ void App::calculateView() {
     camT = cy + h / 2.0f;
 }
 
+glm::vec2 screenToGeometry(double screenX, double screenY) {
+    // normalize screen coords to [0, 1]
+    float normX = screenX / WINDOW_WIDTH;
+    float normY = 1.0f - (screenY / WINDOW_HEIGHT);  // flip y because of opengl standard
+    // map to geometry coordinates using camera bounds
+    float worldX = camL + normX * (camR - camL);
+    float worldY = camB + normY * (camT - camB);
+    
+    return glm::vec2(worldX, worldY);
+}
+
 void App::init() {
     appState = -1;
 }
@@ -70,7 +84,13 @@ void advanceAppState() {
 int stepHold = 0;
 
 void App::input(int key, int action) {
-    if (key == GLFW_KEY_R && action == GLFW_PRESS) {
+    if (appState == 0 && key == -1 && action == GLFW_PRESS) {  // left click
+        Problem::setStart(screenToGeometry(mouseX,mouseY));
+    }
+    else if (appState == 0 && key == -2 && action == GLFW_PRESS) {  // right click
+        Problem::setEnd(screenToGeometry(mouseX,mouseY));
+    }
+    else if (key == GLFW_KEY_R && action == GLFW_PRESS) {
         advanceAppState();
         appState = -1;
     }
@@ -87,6 +107,7 @@ void App::input(int key, int action) {
         if (action == GLFW_PRESS) stepHold = 1;
         else if (action == GLFW_RELEASE) stepHold = 0;
     }
+
 }
 
 void App::update() {
@@ -140,7 +161,7 @@ void App::update() {
             trianglePath.clear();
             portals.clear();
             path.clear();
-            Problem::load();
+            Problem::load(14);
             App::calculateView();
             appState = 0;
             break;

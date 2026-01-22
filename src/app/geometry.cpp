@@ -66,3 +66,22 @@ triangleNode Geometry::makeTriangleNode() {
     return newNode;
 }
 
+bool Geometry::pointInPolygon(glm::vec2 point) {
+    int n = polygon.size();
+    int count = 0;
+    
+    for (int i = 0; i < n; i++) {
+        glm::vec2 a = polygon[i];
+        glm::vec2 b = polygon[(i + 1) % n];
+        
+        if ((a.y <= point.y && point.y < b.y) || (b.y <= point.y && point.y < a.y)) {
+            float xIntersect = a.x + (point.y - a.y) * (b.x - a.x) / (b.y - a.y);
+            if (point.x < xIntersect) {
+                count++;
+            }
+        }
+    }
+    
+    return count % 2 == 1;
+}
+

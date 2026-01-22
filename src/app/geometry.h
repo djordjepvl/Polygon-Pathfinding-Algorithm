@@ -49,5 +49,6 @@ namespace Geometry {
     void printEndPoints();
     void calculateBoundingBox();
     triangleNode makeTriangleNode();
+    bool pointInPolygon(glm::vec2 point);
 }
 

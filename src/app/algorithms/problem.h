@@ -10,4 +10,6 @@ namespace Problem {
     void loadPrev();
     void loadPolygon(std::string fileName);
     void randomEndPoints();
+    void setStart(glm::vec2 pos);
+    void setEnd(glm::vec2 pos);
 }

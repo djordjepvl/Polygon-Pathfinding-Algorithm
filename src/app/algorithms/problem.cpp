@@ -130,3 +130,54 @@ void Problem::randomEndPoints() {
         polygon[indices[endTriangle*3 + 2]]
     );
 }
+
+void Problem::setStart(glm::vec2 pos){
+    int triCount = indices.size() / 3;
+    for (int i = 0; i < triCount; i++) {
+        glm::vec2 a = polygon[indices[i*3 + 0]];
+        glm::vec2 b = polygon[indices[i*3 + 1]];
+        glm::vec2 c = polygon[indices[i*3 + 2]];
+        
+        glm::vec2 v0 = c - a, v1 = b - a, v2 = pos - a;
+        float dot00 = glm::dot(v0, v0);
+        float dot01 = glm::dot(v0, v1);
+        float dot02 = glm::dot(v0, v2);
+        float dot11 = glm::dot(v1, v1);
+        float dot12 = glm::dot(v1, v2);
+        
+        float invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
+        float u = (dot11 * dot02 - dot01 * dot12) * invDenom;
+        float v = (dot00 * dot12 - dot01 * dot02) * invDenom;
+        
+        if ((u >= 0) && (v >= 0) && (u + v <= 1)) {
+            startTriangle = i;
+            startPoint = pos;
+            return;
+        }
+    }
+}
+void Problem::setEnd(glm::vec2 pos){
+    int triCount = indices.size() / 3;
+    for (int i = 0; i < triCount; i++) {
+        glm::vec2 a = polygon[indices[i*3 + 0]];
+        glm::vec2 b = polygon[indices[i*3 + 1]];
+        glm::vec2 c = polygon[indices[i*3 + 2]];
+        
+        glm::vec2 v0 = c - a, v1 = b - a, v2 = pos - a;
+        float dot00 = glm::dot(v0, v0);
+        float dot01 = glm::dot(v0, v1);
+        float dot02 = glm::dot(v0, v2);
+        float dot11 = glm::dot(v1, v1);
+        float dot12 = glm::dot(v1, v2);
+        
+        float invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
+        float u = (dot11 * dot02 - dot01 * dot12) * invDenom;
+        float v = (dot00 * dot12 - dot01 * dot02) * invDenom;
+        
+        if ((u >= 0) && (v >= 0) && (u + v <= 1)) {
+            endTriangle = i;
+            endPoint = pos;
+            return;
+        }
+    }
+}
