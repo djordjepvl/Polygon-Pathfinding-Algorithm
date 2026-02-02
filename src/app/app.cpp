@@ -247,12 +247,12 @@ void setColor(glm::vec4 color, float opacityOverride = -1) {
 }
 
 void drawFillLayer(float opacity) {
-    glColor4f(bgColor.r, bgColor.g, bgColor.b, opacity);
+    setColor(bgColor, opacity);
     glBegin(GL_QUADS);
-        glVertex2f(-1.0f, -1.0f);
-        glVertex2f( 1.0f, -1.0f);
-        glVertex2f( 1.0f,  1.0f);
-        glVertex2f(-1.0f,  1.0f);
+        glVertex2f(camL, camB);
+        glVertex2f(camR, camB);
+        glVertex2f(camR, camT);
+        glVertex2f(camL, camT);
     glEnd();
 }
 
