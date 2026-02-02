@@ -50,4 +50,11 @@ target_link_libraries(LearningOpenGL PRIVATE
     OpenGL::GL
 )
 
-
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/polygons")
+    add_custom_command(TARGET LearningOpenGL POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/polygons"
+        "$<TARGET_FILE_DIR:LearningOpenGL>/polygons"
+        COMMENT "Syncing polygons to build folder..."
+    )
+endif()
