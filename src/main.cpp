@@ -25,9 +25,12 @@ int main() {
     });
 
     glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int button, int action, int mods) {
-        glfwGetCursorPos(w, &mouseX, &mouseY);
-        int mouseKey = -(button + 1);
-        App::input(mouseKey, action);
+    int mouseKey = -(button + 1);
+    App::input(mouseKey, action);
+    });
+    glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xpos, double ypos) {
+    mouseX = xpos;
+    mouseY = ypos;
     });
 
     while (!glfwWindowShouldClose(window)) {

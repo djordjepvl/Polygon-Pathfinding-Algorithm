@@ -28,14 +28,19 @@ std::string getFileAtIndex(int index) {
     throw std::runtime_error("Polygon file at index " + std::to_string(index) + " not found");
 }
 
+void Problem::create() {
+    if (!Geometry::polyIsCCW()) std::reverse(polygon.begin(), polygon.end());
+    Triangulate::triangulatePolygon();
+    Problem::randomEndPoints();
+    Geometry::calculateBoundingBox();
+}
+
 void Problem::load(std::string fileName) {
     polygon.clear();
     indices.clear();
     nodes.clear();
     Problem::loadPolygon(fileName);
-    Triangulate::triangulatePolygon();
-    Problem::randomEndPoints();
-    Geometry::calculateBoundingBox();
+    create();
 }
 
 

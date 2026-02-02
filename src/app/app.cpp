@@ -14,10 +14,13 @@ double mouseY = 0;
 
 bool doStep = 0;
 
+bool allowCursor = false;
+bool allowPolyClose = false;
+
 float camL, camR, camB, camT;
 glm::vec4 bgColor = glm::vec4(0.145f, 0.165f, 0.188f, 1.0f);
 glm::vec4 polyTriangleColor = glm::vec4(0.224f, 0.251f, 0.29f, 1.0f);
-glm::vec4 polyEdgeColor = glm::vec4(0.5f, 0.6f, 0.8f, 1.0f);
+glm::vec4 polyColor = glm::vec4(0.5f, 0.6f, 0.8f, 1.0f);
 glm::vec4 startPointColor = glm::vec4(0.259f, 0.941f, 0.494f, 1.0f);
 glm::vec4 endPointColor = glm::vec4(0.941f, 0.259f, 0.529f, 1.0f);
 
@@ -27,6 +30,8 @@ glm::vec4 trianglePathColor = glm::vec4(0.098f, 0.478f, 1.0f, 1.0f);
 
 glm::vec4 funnelLeftColor = glm::vec4(0.988f, 0.976f, 0.208f, 1.0f);
 glm::vec4 funnelRightColor = glm::vec4(0.988f, 0.208f, 0.929f, 1.0f);
+
+glm::vec4 notAllowedColor = glm::vec4(0.690f, 0.071f, 0.184f, 1.0f);
 
 glm::vec4 desaturateColor(glm::vec4 color, float amount) {
     glm::vec3 luminanceWeights(0.299f, 0.587f, 0.114f);
@@ -84,15 +89,25 @@ void advanceAppState() {
 int stepHold = 0;
 
 void App::input(int key, int action) {
-    if (appState == 0 && key == -1 && action == GLFW_PRESS) {  // left click
-        Problem::setStart(screenToGeometry(mouseX,mouseY));
+    if (key == -1 && action == GLFW_PRESS) {  // left click
+        if (appState == 0) Problem::setStart(cursor);
+        else if (appState == -5) {
+            if (allowCursor) polygon.push_back(cursor);
+        }
     }
-    else if (appState == 0 && key == -2 && action == GLFW_PRESS) {  // right click
-        Problem::setEnd(screenToGeometry(mouseX,mouseY));
+    else if (key == -2 && action == GLFW_PRESS) {  // right click
+        if (appState == 0) Problem::setEnd(cursor);
+        else if (appState == -5) {
+            if (polygon.size()>0) polygon.pop_back();
+        }
     }
     else if (key == GLFW_KEY_R && action == GLFW_PRESS) {
         advanceAppState();
         appState = -1;
+    }
+    else if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+        advanceAppState();
+        appState = -4;
     }
     else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
         advanceAppState();
@@ -102,7 +117,17 @@ void App::input(int key, int action) {
         advanceAppState();
         appState = -3;
     }
-    else if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) advanceAppState();
+    else if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) {
+        if (appState == -5) {
+            if (allowPolyClose) {
+                Problem::create();
+                App::calculateView();
+                advanceAppState();
+                appState = 0;
+            }
+        }
+        else advanceAppState();
+    }
     else if (key == GLFW_KEY_F) {
         if (action == GLFW_PRESS) stepHold = 1;
         else if (action == GLFW_RELEASE) stepHold = 0;
@@ -111,6 +136,10 @@ void App::input(int key, int action) {
 }
 
 void App::update() {
+    cursor = screenToGeometry(mouseX,mouseY);
+    allowCursor = Geometry::allowNewPoint(cursor, 0.005f);
+    allowPolyClose = polygon.size()>2 && Geometry::allowNewPoint(polygon[0], 0.0f);
+
     if (stepHold) {
         doStep = (stepHold-1)%20==0;
         stepHold++;
@@ -183,6 +212,15 @@ void App::update() {
             App::calculateView();
             appState = 0;
             break;
+        case -4:
+            nodes.clear();
+            trianglePath.clear();
+            portals.clear();
+            path.clear();
+            indices.clear();
+            polygon.clear();
+            appState = -5;
+            break;
         case 1:
             PathFind::createGraph();
             break;
@@ -232,11 +270,22 @@ void drawPolyTriangles() {
     }
 }
 
-void drawPolyEdges() {
-    setColor(polyEdgeColor);
-    glBegin(GL_LINE_LOOP);
-    for (auto& p : polygon) glVertex2f(p.x, p.y);
-    glEnd();
+void drawPoly() {
+    setColor(polyColor);
+
+    if (appState == -5 && polygon.size()>0) {
+        glBegin(GL_LINE_STRIP);
+        for (auto& p : polygon) glVertex2f(p.x, p.y);
+        glEnd();
+        glBegin(GL_POINTS);
+        glVertex2f(polygon[0].x, polygon[0].y);
+        glEnd();
+    }
+    else {
+        glBegin(GL_LINE_LOOP);
+        for (auto& p : polygon) glVertex2f(p.x, p.y);
+        glEnd();
+    }
 }
 
 void drawEndTriangles() {
@@ -412,6 +461,20 @@ void drawPath() {
     glEnd();
 }
 
+void drawCursor() {
+    if (allowCursor) setColor(polyColor, 0.6f);
+    else setColor(notAllowedColor, 0.6f);
+    if (polygon.size()>0) {
+        glBegin(GL_LINE_STRIP);
+        glVertex2f(polygon.back().x, polygon.back().y);
+        glVertex2f(cursor.x,cursor.y);
+        glEnd();
+    }
+    glBegin(GL_POINTS);
+    glVertex2f(cursor.x, cursor.y);
+    glEnd();
+}
+
 void App::render() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -425,9 +488,23 @@ void App::render() {
     glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
     glPointSize(10.0f);
     glLineWidth(2.0f);
+
+    if (appState == -5) {
+        drawPoly();
+        drawCursor();
+        if (polygon.size()>2) {
+            if (allowPolyClose) setColor(polyColor, 0.4f);
+            else setColor(notAllowedColor, 0.4f);
+            glBegin(GL_LINE_STRIP);
+            glVertex2f(polygon.back().x, polygon.back().y);
+            glVertex2f(polygon[0].x, polygon[0].y);
+            glEnd();
+        }
+        return;
+    }
     
     drawPolyTriangles();
-    drawPolyEdges();
+    drawPoly();
     
     if (appState>=3 && appState<7) {
         drawFillLayer(0.65f);

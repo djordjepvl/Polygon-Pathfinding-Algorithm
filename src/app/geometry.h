@@ -43,6 +43,8 @@ extern int rightIndx;
 extern glm::vec2 rightPoint;
 extern glm::vec2 rightTarget;
 
+extern glm::vec2 cursor;
+
 namespace Geometry {
     void printPolygon();
     void printTriangles();
@@ -50,5 +52,8 @@ namespace Geometry {
     void calculateBoundingBox();
     triangleNode makeTriangleNode();
     bool pointInPolygon(glm::vec2 point);
+    bool segmentsIntersect(glm::vec2 p1, glm::vec2 p2, glm::vec2 p3, glm::vec2 p4);
+    bool allowNewPoint(glm::vec2 potentialPoint, const float epsilon);
+    bool polyIsCCW();
 }
 

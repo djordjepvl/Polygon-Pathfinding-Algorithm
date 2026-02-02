@@ -3,6 +3,7 @@
 extern int currPolyIndex;
 
 namespace Problem {
+    void create();
     void load(std::string fileName);
     void load(int index);
     void load();

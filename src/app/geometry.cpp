@@ -1,5 +1,6 @@
 #include <config.h>
 #include <geometry.h>
+#include <util.h>
 
 std::vector<glm::vec2> polygon;
 std::vector<int> indices;
@@ -18,6 +19,8 @@ glm::vec2 leftTarget;
 int rightIndx;
 glm::vec2 rightPoint;
 glm::vec2 rightTarget;
+
+glm::vec2 cursor;
 
 
 void Geometry::printPolygon() {
@@ -83,5 +86,76 @@ bool Geometry::pointInPolygon(glm::vec2 point) {
     }
     
     return count % 2 == 1;
+}
+
+bool Geometry::segmentsIntersect(glm::vec2 p1, glm::vec2 p2, glm::vec2 p3, glm::vec2 p4) {
+    float cp1 = crossProduct(p1, p2, p3);
+    float cp2 = crossProduct(p1, p2, p4);
+    
+    float cp3 = crossProduct(p3, p4, p1);
+    float cp4 = crossProduct(p3, p4, p2);
+
+    if (((cp1 > 0 && cp2 < 0) || (cp1 < 0 && cp2 > 0)) &&
+        ((cp3 > 0 && cp4 < 0) || (cp3 < 0 && cp4 > 0))) {
+        return true;
+    }
+
+    return false;
+}
+
+float distPointToSegment(glm::vec2 p, glm::vec2 a, glm::vec2 b) {
+    glm::vec2 ab = b - a;
+    glm::vec2 ap = p - a;
+
+    float l2 = ab.x * ab.x + ab.y * ab.y; 
+    if (l2 == 0.0f) return glm::distance(p, a);
+
+    float t = std::max(0.0f, std::min(1.0f, glm::dot(ap, ab) / l2));
+    glm::vec2 projection = a + t * ab;
+    
+    return glm::distance(p, projection);
+}
+
+bool Geometry::allowNewPoint(glm::vec2 potentialPoint, const float epsilon) {
+
+    for (const auto& p : polygon) {
+        if (glm::distance(potentialPoint, p) < epsilon) return false;
+    }
+
+    if (polygon.size() < 1) return true;
+
+    for (size_t i = 0; i + 1 < polygon.size(); ++i) {
+        glm::vec2 a = polygon[i];
+        glm::vec2 b = polygon[i+1];
+        
+        float d = distPointToSegment(potentialPoint, a, b);
+        if (d < epsilon) return false;
+    }
+
+    if (polygon.size() < 2) return true;
+
+    glm::vec2 newStart = polygon.back();
+    glm::vec2 newEnd = potentialPoint;
+    for (size_t i = 0; i + 1 < polygon.size() - 1; ++i) {
+        if (segmentsIntersect(newStart, newEnd, polygon[i], polygon[i+1])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool Geometry::polyIsCCW() {
+    float area = 0.0f;
+    int n = polygon.size();
+    
+    for (int i = 0; i < n; i++) {
+        glm::vec2 p1 = polygon[i];
+        glm::vec2 p2 = polygon[(i + 1) % n];
+        
+        area += (p2.x - p1.x) * (p2.y + p1.y);
+    }
+
+    return area < 0;
 }
 
