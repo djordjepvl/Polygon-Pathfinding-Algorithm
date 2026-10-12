@@ -7,6 +7,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(OpenGL REQUIRED)
 
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+add_subdirectory(dependencies/GLFW)
+
 add_executable(LearningOpenGL
     src/glad.c
     src/config.h
@@ -32,21 +37,20 @@ add_executable(LearningOpenGL
 
 set(DEPENDENCIES_PATH ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
 
-target_include_directories(LearningOpenGL PRIVATE 
-    ${DEPENDENCIES_PATH}/GLFW/include
+target_include_directories(LearningOpenGL PRIVATE
     ${DEPENDENCIES_PATH}/GLAD/include
     ${DEPENDENCIES_PATH}/GLM/include
+    ${DEPENDENCIES_PATH}/stb/include
+    ${DEPENDENCIES_PATH}/json/include
+    ${DEPENDENCIES_PATH}/tinygltf/include
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/src/app
     ${CMAKE_CURRENT_SOURCE_DIR}/src/app/algorithms
 )
-target_link_directories(LearningOpenGL PRIVATE 
-    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/GLFW/lib-vc2022
-)
 
 target_link_libraries(LearningOpenGL PRIVATE 
-    glfw3
+    glfw
     OpenGL::GL
 )
 
@@ -57,4 +61,8 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/polygons")
         "$<TARGET_FILE_DIR:LearningOpenGL>/polygons"
         COMMENT "Syncing polygons to build folder..."
     )
+endif()
+
+if(MINGW)
+    target_link_options(LearningOpenGL PRIVATE -static)
 endif()
